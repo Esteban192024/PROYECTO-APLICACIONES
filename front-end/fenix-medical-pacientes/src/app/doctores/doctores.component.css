@@ -166,3 +166,65 @@ footer {
 .contact p {
     font-size: 14px;
 }
+
+/* Menú y disposición en pantallas pequeñas */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px;
+        text-align: center;
+    }
+
+    header .logo {
+        margin-bottom: 10px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+
+    /* Submenú se adapta */
+    nav ul li.services .submenu {
+        position: static;
+        width: 100%;
+    }
+
+    /* Doctores se muestran en una sola columna */
+    .doctor-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+    nav ul li a {
+        font-size: 16px;
+    }
+
+    .doctor h3 {
+        font-size: 16px;
+    }
+
+    .doctor p {
+        font-size: 14px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .social img {
+        width: 25px;
+    }
+
+    .contact p {
+        font-size: 12px;
+    }
+}
