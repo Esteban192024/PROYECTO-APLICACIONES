@@ -1,0 +1,459 @@
+<div class="admin-container">
+  <!-- 🔹 HEADER FIJO -->
+  <header class="header">
+    <div class="logo">
+      <img src="/assets/img/logo.svg" alt="Fénix Medical" />
+      <h1>Fénix Medical</h1>
+    </div>
+    <div class="user-info">
+      <img src="/assets/img/doctor.jpg" alt="Doctor" class="doctor-photo" />
+      <span>Dr. Dany Castillo</span>
+      <!-- 🔹 Notificaciones en Tiempo Real -->
+      <div class="notifications">
+        <button class="notifications-btn" (click)="toggleNotificaciones($event)">
+          🔔 <span class="notif-count">{{ notificaciones.length }}</span>
+        </button>
+        <div class="notif-dropdown" *ngIf="mostrarNotificaciones">
+          <ul>
+            <li *ngFor="let notif of notificaciones">{{ notif.mensaje }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle">⚙️</button>
+        <div class="dropdown-menu">
+          <a (click)="mostrarSeccion('perfil')">📄 Perfil</a>
+          <a (click)="cerrarSesion()">🚪 Cerrar Sesión</a>
+          <a (click)="toggleModoOscuro()">🌞🌙 Modo Oscuro</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 🔹 BARRA LATERAL DE NAVEGACIÓN -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Menú</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a (click)="mostrarSeccion('dashboard')" [class.active]="seccionActual === 'dashboard'">🏠 Inicio</a></li>
+        <li><a (click)="mostrarSeccion('pacientes')" [class.active]="seccionActual === 'pacientes'">👥 Pacientes</a></li>
+        <li><a (click)="mostrarSeccion('atenciones')" [class.active]="seccionActual === 'atenciones'">🩺 Atenciones Médicas</a></li>
+        <li><a (click)="mostrarSeccion('reportes')" [class.active]="seccionActual === 'reportes'">📊 Reportes Médicos</a></li>
+        <li><a (click)="mostrarSeccion('citas')" [class.active]="seccionActual === 'citas'">📅 Citas Médicas</a></li>
+        <li><a (click)="mostrarSeccion('certificados')" [class.active]="seccionActual === 'certificados'">📜 Certificados y Recetas</a></li>
+        <li><a (click)="mostrarSeccion('configuracion')" [class.active]="seccionActual === 'configuracion'">⚙️ Configuración</a></li>
+        <li><a (click)="cerrarSesion()" class="logout">🚪 Cerrar Sesión</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- 🔹 CONTENIDO PRINCIPAL -->
+  <main class="content">
+    <!-- 🟠 BIENVENIDA PERSONALIZADA -->
+    <section *ngIf="seccionActual === 'dashboard'" class="welcome">
+      <img src="/assets/img/doctor.jpg" alt="Doctor" class="doctor-photo-large" />
+      <h2>¡Buenos días, Dr. Castillo!</h2>
+      <p>Aquí tienes el resumen de tu día.</p>
+    </section>
+
+    <!-- 📊 RESUMEN DIARIO -->
+    <section *ngIf="seccionActual === 'dashboard'" class="daily-summary">
+      <div class="summary-cards">
+        <div class="card">
+          <i class="fas fa-user-md"></i>
+          <div class="title">🏥 Pacientes Atendidos</div>
+          <div class="content">10 pacientes</div>
+        </div>
+      
+        <div class="card">
+          <i class="fas fa-stethoscope"></i>
+          <div class="title">🩺 Especialidades Más Demandadas</div>
+          <div class="content">Cardiología 40%, Pediatría 20%</div>
+        </div>
+      
+        <div class="card">
+          <i class="fas fa-calendar-alt"></i>
+          <div class="title">📅 Citas de hoy</div>
+          <div class="content">5 pendientes, 2 completos</div>
+        </div>
+      
+        <div class="card">
+          <i class="fas fa-hourglass-half"></i>
+          <div class="title">⏳ Tiempo Promedio</div>
+          <div class="content">15 min/paciente</div>
+        </div>
+      </div>
+    </section>
+      <!-- ⚡ ATAJOS RÁPIDOS -->
+      <div *ngIf="seccionActual === 'dashboard'" class="shortcuts">
+        <button class="shortcut-btn"><i class="fas fa-plus"></i>➕ Nueva Atención</button>
+        <button class="shortcut-btn"><i class="fas fa-search"></i>🔍 Buscar Paciente</button>
+        <button class="shortcut-btn"><i class="fas fa-chart-bar"></i>📊 Generar Informe</button>
+        <button class="shortcut-btn"><i class="fas fa-calendar-alt"></i>📅 Ver Calendario</button>
+      </div>
+
+      <!-- 📋 ÚLTIMAS ATENCIONES -->
+      <section *ngIf="seccionActual === 'dashboard'" class="recent-attentions">
+        <!-- 🔹 FILTROS PARA TABLA DE ATENCIONES -->
+        <h2 class="title">Últimas Atenciones Médicas</h2>
+        <div class="filters">
+          <input type="text" class="search-input" placeholder="🔍 Buscar paciente..." [(ngModel)]="filtroPaciente">
+          <input type="date" class="date-input" [(ngModel)]="filtroFecha">
+          <button class="filter-btn"><i class="fas fa-filter"></i> Filtrar</button>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>ID Atención</th>
+              <th>Paciente</th>
+              <th>Cédula</th>
+              <th>Fecha</th>
+              <th>Diagnóstico</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 🟢 Filtrar atenciones dinámicamente con "Ver más" -->
+            <tr *ngFor="let atencion of atenciones.slice(0, verMasAtenciones ? atenciones.length : 5)">
+              <td>{{ atencion.id }}</td>
+              <td>{{ atencion.paciente }}</td>
+              <td>{{ atencion.cedula }}</td>
+              <td>{{ atencion.fecha }}</td>
+              <td>{{ atencion.diagnostico }}</td>
+              <td>
+                <button>🔍 Ver</button>
+                <button>✏️ Editar</button>
+                <button>❌ Eliminar</button>
+              </td>
+            </tr>
+
+            <!-- Mensaje si no hay atenciones médicas -->
+            <tr *ngIf="atenciones.length === 0">
+              <td colspan="6" class="no-results">❌ No se encontraron atenciones médicas.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 🔽 Botón "Ver más" -->
+        <button *ngIf="atenciones.length > 5" class="see-more-btn" (click)="verMasAtenciones = !verMasAtenciones">
+          {{ verMasAtenciones ? 'Ver menos' : 'Ver más' }}
+        </button>
+      </section>
+
+
+        <!-- 📈 ESTADÍSTICAS Y REPORTES VISUALES -->
+        <section *ngIf="seccionActual === 'dashboard'" class="stats-reports">
+          <h2 class="title">📈 Estadísticas y Reportes Visuales</h2>
+          <div class="charts-container">
+            <div class="chart">
+              <h3>🩺 Atenciones por Especialidad</h3>
+              <canvas id="barChart"></canvas>
+            </div>
+            <div class="chart">
+              <h3>📉 Evolución de Pacientes Atendidos</h3>
+              <canvas id="lineChart"></canvas>
+            </div>
+            <div class="chart">
+              <h3>🏥 Distribución de Enfermedades</h3>
+              <canvas id="pieChart"></canvas>
+            </div>
+            <div class="chart">
+              <h3>📆 Citas Médicas Confirmadas vs Pendientes</h3>
+              <canvas id="appointmentsChart"></canvas>
+            </div>
+          </div>
+          <button class="download-report">📥 Descargar Reporte</button>
+        </section>
+    
+        <!-- 📅 PRÓXIMAS CITAS PROGRAMADAS -->
+        <section *ngIf="seccionActual === 'dashboard'" class="upcoming-appointments">
+          <h2 class="title">📅 Próximas Citas Programadas</h2>
+
+          <!-- 🔍 Barra de Búsqueda -->
+          <div class="search-container">
+            <input 
+              type="text" 
+              [(ngModel)]="filtroCitas" 
+              placeholder="🔍 Buscar paciente o fecha..." 
+              class="search-bar"
+            />
+          </div>
+
+          <div class="appointments-list">
+            <div class="appointment" *ngFor="let cita of citasFiltradas">
+              <h3>👨‍⚕️ {{ cita.paciente }}</h3>
+              <p>📅 {{ cita.fecha }} - ⏰ {{ cita.hora }}</p>
+              <p>📍 {{ cita.consultorio }} - 🩺 {{ cita.especialidad }}</p>
+              <button class="small-btn attended-btn" (click)="marcarComoAtendida(cita)">
+                ✅ Marcar como Atendida
+              </button>
+            </div>
+
+            <!-- Mensaje si no hay citas -->
+            <p *ngIf="citasFiltradas.length === 0" class="no-results">
+              ❌ No se encontraron citas programadas.
+            </p>
+          </div>
+
+          <!-- 🔽 Botón "Ver más" -->
+          <button *ngIf="citas.length > 5" class="see-more-btn" (click)="verMasCitas = !verMasCitas">
+            {{ verMasCitas ? 'Ver menos' : 'Ver más' }}
+          </button>
+        </section>
+
+        <!-- 📂 DOCUMENTOS Y ARCHIVOS MÉDICOS -->
+        <section *ngIf="seccionActual === 'dashboard'" class="medical-documents">
+          <h2 class="title">📂 Documentos y Archivos Médicos</h2>
+
+          <!-- 🔍 Barra de Búsqueda -->
+          <div class="search-container">
+            <input 
+              type="text" 
+              [(ngModel)]="filtroDocumentos" 
+              placeholder="🔍 Buscar paciente o nombre del archivo..." 
+              class="search-bar"
+            />
+          </div>
+
+          <div class="documents-list">
+            <div class="document" *ngFor="let documento of documentosFiltrados">
+              <h3>📑 {{ documento.nombre }}</h3>
+              <p>📅 Subido el {{ documento.fecha }}</p>
+              <button class="small-btn download-btn" (click)="descargarDocumento(documento)">
+                📥 Descargar
+              </button>
+            </div>
+
+            <!-- Mensaje si no hay documentos -->
+            <p *ngIf="documentosFiltrados.length === 0" class="no-results">
+              ❌ No se encontraron documentos.
+            </p>
+          </div>
+
+          <!-- 🔽 Botón "Ver más" -->
+          <button *ngIf="documentos.length > 5" class="see-more-btn" (click)="verMasDocumentos = !verMasDocumentos">
+            {{ verMasDocumentos ? 'Ver menos' : 'Ver más' }}
+          </button>
+
+            <!-- 📤 Botón para subir nuevos documentos -->
+        <button class="small-btn upload-btn" (click)="subirNuevoDocumento()">
+          📤 Subir Nuevo Documento
+        </button>
+        </section>
+
+
+        <div *ngIf="seccionActual === 'pacientes'" class="contenedor-pacientes">
+  
+          <!-- 🔵 ENCABEZADO -->
+          <div class="header-pacientes">
+            <h2 class="titulo-seccion">👥 Gestión de Pacientes</h2>
+            
+            <div class="filtros-pacientes">
+              <input type="text" class="input-busqueda" placeholder="🔎 Buscar por nombre, cédula o historial..." [(ngModel)]="filtroPaciente">
+          
+              <select class="select-filtro" [(ngModel)]="filtroFechaIngreso">
+                <option value="">📆 Filtrar por Fecha de Ingreso</option>
+                <option *ngFor="let fecha of fechasIngreso" [value]="fecha">{{ fecha }}</option>
+              </select>
+          
+              <select class="select-filtro" [(ngModel)]="filtroDoctor">
+                <option value="">🩺 Filtrar por Doctor Tratante</option>
+                <option *ngFor="let doctor of doctores" [value]="doctor">{{ doctor }}</option>
+              </select>
+          
+              <button class="btn btn-nuevo" (click)="abrirFormularioPaciente()">➕ Nuevo Paciente</button>
+            </div>
+          </div>
+        
+          <!-- 🔵 LISTADO DE PACIENTES -->
+          <div class="lista-pacientes">
+            <table class="tabla-pacientes">
+              <thead>
+                <tr class="encabezado-tabla">
+                  <th>📌 Cédula</th>
+                  <th>🆔 Nombre Completo</th>
+                  <th>🎂 Fecha de Nacimiento</th>
+                  <th>🚻 Sexo</th>
+                  <th>📞 Teléfono</th>
+                  <th>🏠 Dirección</th>
+                  <th>📖 Historial Clínico</th>
+                  <th>🛠️ Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let paciente of pacientesFiltrados">
+                  <td>{{ paciente.cedula }}</td>
+                  <td>{{ paciente.nombre }}</td>
+                  <td>{{ paciente.fechaNacimiento }}</td>
+                  <td>{{ paciente.sexo }}</td>
+                  <td>{{ paciente.telefono }}</td>
+                  <td>{{ paciente.direccion }}</td>
+                  <td><button class="btn btn-ver" (click)="verHistorial(paciente)">👁️ Ver</button></td>
+                  <td>
+                    <button class="btn btn-editar" (click)="editarPaciente(paciente)">✏️</button>
+                    <button class="btn btn-eliminar" (click)="eliminarPaciente(paciente)">❌</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        
+          <!-- 📋 FORMULARIO DE REGISTRO -->
+          <div *ngIf="mostrarFormularioPaciente" class="formulario-paciente">
+            <h3 class="titulo-formulario">🏥 Registro de Nuevo Paciente</h3>
+
+            <div class="pestañas-formulario">
+              <button class="btn-pestaña" (click)="cambiarPestana('info')">🆔 Información Básica</button>
+              <button class="btn-pestaña" (click)="cambiarPestana('contacto')">📞 Contacto</button>
+              <button class="btn-pestaña" (click)="cambiarPestana('clinico')">🏥 Datos Clínicos</button>
+              <button class="btn-pestaña" (click)="cambiarPestana('facturacion')">💳 Facturación</button>
+            </div>
+
+            <div class="contenido-formulario">
+              <!-- Información Básica -->
+              <div *ngIf="pestanaActiva === 'info'" class="seccion-formulario">
+                <input type="text" class="input-formulario" placeholder="Cédula" [(ngModel)]="nuevoPaciente.cedula">
+                <input type="text" class="input-formulario" placeholder="Nombre" [(ngModel)]="nuevoPaciente.nombre">
+                <input type="text" class="input-formulario" placeholder="Apellido" [(ngModel)]="nuevoPaciente.apellido">
+                <input type="date" class="input-formulario" [(ngModel)]="nuevoPaciente.fechaNacimiento">
+                <select class="select-formulario" [(ngModel)]="nuevoPaciente.sexo">
+                  <option>Masculino</option>
+                  <option>Femenino</option>
+                  <option>Otro</option>
+                </select>
+                <input type="text" class="input-formulario" placeholder="Etnia" [(ngModel)]="nuevoPaciente.etnia">
+              </div>
+
+              <!-- Datos de Contacto -->
+              <div *ngIf="pestanaActiva === 'contacto'" class="seccion-formulario">
+                <input type="email" class="input-formulario" placeholder="Correo Electrónico" [(ngModel)]="nuevoPaciente.email">
+                <input type="text" class="input-formulario" placeholder="Teléfono" [(ngModel)]="nuevoPaciente.telefono">
+                <input type="text" class="input-formulario" placeholder="Dirección" [(ngModel)]="nuevoPaciente.direccion">
+              </div>
+
+              <!-- Datos Clínicos -->
+              <div *ngIf="pestanaActiva === 'clinico'" class="seccion-formulario">
+                <input type="text" class="input-formulario" placeholder="Ocupación" [(ngModel)]="nuevoPaciente.ocupacion">
+                <input type="text" class="input-formulario" placeholder="Tipo de Sangre" [(ngModel)]="nuevoPaciente.tipoSangre">
+                <input type="text" class="input-formulario" placeholder="Enfermedades Hereditarias" [(ngModel)]="nuevoPaciente.enfermedadesHerencia">
+                <input type="text" class="input-formulario" placeholder="Alergias" [(ngModel)]="nuevoPaciente.alergia">
+                <input type="text" class="input-formulario" placeholder="Antecedentes" [(ngModel)]="nuevoPaciente.antecedentes">
+              </div>
+
+              <!-- Datos de Facturación -->
+              <div *ngIf="pestanaActiva === 'facturacion'" class="seccion-formulario">
+                <input type="text" class="input-formulario" placeholder="Nombres" [(ngModel)]="nuevoPaciente.facturacion.nombres">
+                <input type="text" class="input-formulario" placeholder="Apellidos" [(ngModel)]="nuevoPaciente.facturacion.apellidos">
+                <input type="text" class="input-formulario" placeholder="Cédula" [(ngModel)]="nuevoPaciente.facturacion.cedula">
+                <input type="email" class="input-formulario" placeholder="Correo Electrónico" [(ngModel)]="nuevoPaciente.facturacion.email">
+                <input type="text" class="input-formulario" placeholder="Celular" [(ngModel)]="nuevoPaciente.facturacion.celular">
+                <input type="text" class="input-formulario" placeholder="Dirección" [(ngModel)]="nuevoPaciente.facturacion.direccion">
+              </div>
+            </div>
+
+            <div class="acciones-formulario">
+              <button class="btn btn-guardar" (click)="guardarPaciente()">💾 Guardar</button>
+              <button class="btn btn-cancelar" (click)="cerrarFormularioPaciente()">❌ Cancelar</button>
+            </div>
+          </div>
+
+        
+          <!-- 🏥 HISTORIAL MÉDICO -->
+          <div *ngIf="mostrarHistorialPaciente" class="historial-medico">
+            <h3 class="titulo-historial">📖 Historial de {{ pacienteSeleccionado.nombre }}</h3>
+
+            <div class="pestañas-historial">
+              <button class="btn-pestaña" (click)="cambiarHistorial('atenciones')">🏥 Atenciones</button>
+              <button class="btn-pestaña" (click)="cambiarHistorial('recetas')">💊 Recetas</button>
+              <button class="btn-pestaña" (click)="cambiarHistorial('citas')">📆 Citas</button>
+              <button class="btn-pestaña" (click)="cambiarHistorial('documentos')">📑 Documentos</button>
+              <button class="btn-pestaña" (click)="cambiarHistorial('facturacion')">💳 Facturación</button>
+            </div>
+
+            <div class="contenido-historial">
+              <!-- 🏥 Atenciones Médicas -->
+              <div *ngIf="historialActivo === 'atenciones'" class="seccion-historial">
+                <h3>🏥 Atenciones Médicas</h3>
+                <div *ngFor="let atencion of pacienteSeleccionado.atenciones" class="historial-item">
+                  <p>📅 Fecha: {{ atencion.fecha }}</p>
+                  <p>🩺 Motivo: {{ atencion.motivo }}</p>
+                  <p>👨‍⚕️ Médico: {{ atencion.medico }}</p>
+                </div>
+              </div>
+
+              <!-- 💊 Recetas Médicas -->
+              <div *ngIf="historialActivo === 'recetas'" class="seccion-historial">
+                <h3>💊 Recetas Médicas</h3>
+                <div *ngFor="let receta of pacienteSeleccionado.recetas" class="historial-item">
+                  <p>📅 Fecha: {{ receta.fecha }}</p>
+                  <p>📝 Medicación: {{ receta.medicacion }}</p>
+                  <p>🩺 Indicación: {{ receta.indicacion }}</p>
+                </div>
+              </div>
+
+              <!-- 📆 Historial de Citas -->
+              <div *ngIf="historialActivo === 'citas'" class="seccion-historial">
+                <h3>📆 Historial de Citas</h3>
+
+                <h4>📅 Citas de Hoy</h4>
+                <div *ngFor="let cita of citasHoy" class="historial-item">
+                  <p>🕘 Hora: {{ cita.hora }}</p>
+                  <p>👨‍⚕️ Médico: {{ cita.medico }}</p>
+                  <p>📍 Consultorio: {{ cita.consultorio }}</p>
+                  <button class="small-btn" (click)="reprogramarCita(cita)">🔄 Reprogramar</button>
+                  <button class="small-btn cancel-btn" (click)="cancelarCita(cita)">❌ Cancelar</button>
+                </div>
+
+                <h4>📆 Citas Próximas</h4>
+                <div *ngFor="let cita of citasProximas" class="historial-item">
+                  <p>📅 Fecha: {{ cita.fecha }} - ⏰ {{ cita.hora }}</p>
+                  <p>👨‍⚕️ Médico: {{ cita.medico }}</p>
+                  <p>📍 Consultorio: {{ cita.consultorio }}</p>
+                  <button class="small-btn" (click)="reprogramarCita(cita)">🔄 Reprogramar</button>
+                  <button class="small-btn cancel-btn" (click)="cancelarCita(cita)">❌ Cancelar</button>
+                </div>
+
+                <h4>⏳ Citas Pasadas</h4>
+                <div *ngFor="let cita of citasPasadas" class="historial-item">
+                  <p>📅 Fecha: {{ cita.fecha }}</p>
+                  <p>👨‍⚕️ Médico: {{ cita.medico }}</p>
+                  <p>📍 Consultorio: {{ cita.consultorio }}</p>
+                </div>
+              </div>
+
+              <!-- 📑 Documentos Médicos -->
+              <div *ngIf="historialActivo === 'documentos'" class="seccion-historial">
+                <h3>📑 Documentos Médicos</h3>
+                <div *ngFor="let doc of pacienteSeleccionado.documentos" class="historial-item">
+                  <p>📂 Archivo: {{ doc.nombre }}</p>
+                  <p>📅 Fecha: {{ doc.fecha }}</p>
+                  <button class="small-btn" (click)="verDocumento(doc)">👁️ Ver</button>
+                  <button class="small-btn download-btn" (click)="descargarDocumento(doc)">📥 Descargar</button>
+                </div>
+                <button class="btn-upload" (click)="subirDocumento()">📤 Subir Documento</button>
+              </div>
+
+              <!-- 💳 Facturación -->
+              <div *ngIf="historialActivo === 'facturacion'" class="seccion-historial">
+                <h3>💳 Historial de Facturación</h3>
+                <div *ngFor="let factura of pacienteSeleccionado.facturas" class="historial-item">
+                  <p>📅 Fecha: {{ factura.fecha }}</p>
+                  <p>📜 Detalles: {{ factura.detalles }}</p>
+                  <p>💰 Monto: {{ factura.monto }}</p>
+                  <p>📌 Estado: <span [ngClass]="{'pagado': factura.estado === 'Pagado', 'pendiente': factura.estado === 'Pendiente'}">
+                    {{ factura.estado }}
+                  </span></p>
+                </div>
+              </div>
+            </div>
+            
+
+  <!-- 🔹 FOOTER -->
+  <footer class="footer">
+    <p>© 2024 Fénix Medical | 🛠 Soporte | 📃 Privacidad | 🆙 Versión 1.0</p>
+  </footer>

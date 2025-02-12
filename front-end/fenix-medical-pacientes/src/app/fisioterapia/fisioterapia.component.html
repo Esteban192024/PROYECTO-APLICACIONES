@@ -1,0 +1,84 @@
+<!-- Header con el logo y menú -->
+<header>
+  <div class="logo">
+      <img src="assets/logo.png" alt="Fénix Medical Logo" />
+      <h1>Fénix Medical</h1>
+  </div>
+  <nav>
+      <ul>
+          <li><a routerLink="/doctores">Doctores</a></li>
+          <li class="services">
+              <a href="#">Servicios</a>
+              <ul class="submenu">
+                  <li><a routerLink="/medicina-general">Medicina General</a></li>
+                  <li><a routerLink="/fisioterapia">Fisioterapia</a></li>
+              </ul>
+          </li>
+      </ul>
+  </nav>
+</header>
+
+<!-- Cuerpo de la página -->
+<main>
+  <section class="fisioterapia">
+      <h2>Tipos de Fisioterapia</h2>
+      <div class="fisioterapia-item">
+          <button class="toggle" (click)="toggleInfo('traumatologica')">Traumatológicas</button>
+          <div class="info" id="traumatologica">
+              <img src="assets/traumatologica.jpg" alt="Fisioterapia Traumatológica" />
+              <h3>Fisioterapia Traumatológica</h3>
+              <p>
+                  Tratamiento de lesiones musculares, óseas y articulares como fracturas, esguinces y luxaciones.
+              </p>
+          </div>
+      </div>
+      <div class="fisioterapia-item">
+          <button class="toggle" (click)="toggleInfo('neurologica')">Neurológicas</button>
+          <div class="info" id="neurologica">
+              <img src="assets/neurologica.jpg" alt="Fisioterapia Neurológica" />
+              <h3>Fisioterapia Neurológica</h3>
+              <p>
+                  Indicada para lesiones del sistema nervioso como accidentes cerebrovasculares o esclerosis múltiple.
+              </p>
+          </div>
+      </div>
+      <div class="fisioterapia-item">
+        <button class="toggle" (click)="toggleInfo('ocupacional')">Ocupacionales</button>
+        <div class="info" id="ocupacional">
+          <img src="assets/ocupacional.jpg" alt="Fisioterapia Ocupacional" />
+          <h3>Fisioterapia Ocupacionales</h3>
+          <p>
+            Ayuda a personas con discapacidades o lesiones a mejorar su desempeño en actividades laborales y cotidianas.
+          </p>
+        </div>
+      </div>
+      <div class="fisioterapia-item">
+          <button class="toggle" (click)="toggleInfo('respiratoria')">Respiratoria</button>
+          <div class="info" id="respiratoria">
+              <img src="assets/respiratoria.jpg" alt="Fisioterapia Respiratoria" />
+              <h3>Fisioterapia Respiratoria</h3>
+              <p>
+                  Mejora la función pulmonar en enfermedades crónicas como asma o EPOC.
+              </p>
+          </div>
+      </div>
+  </section>
+</main>
+
+<!-- Icono de WhatsApp flotante -->
+<a href="https://wa.me/123456789" target="_blank" class="whatsapp-float">
+  <img src="assets/whatsapp-icon.png" alt="WhatsApp" />
+</a>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+      <div class="social">
+          <a href="#"><img src="assets/facebook.png" alt="Facebook" /></a>
+          <a href="#"><img src="assets/instagram.png" alt="Instagram" /></a>
+      </div>
+      <div class="contact">
+          <p>Teléfono de Contacto: +123 456 789</p>
+      </div>
+  </div>
+</footer>

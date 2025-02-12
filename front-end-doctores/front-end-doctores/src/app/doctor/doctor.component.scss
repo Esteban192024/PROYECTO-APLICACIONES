@@ -1,0 +1,1109 @@
+// 🎨 VARIABLES DE COLORES
+$color-primario: #2c3e50; // Azul oscuro elegante
+$color-secundario: #34495e; // Azul grisáceo
+$color-texto: #ecf0f1; // Blanco grisáceo
+$color-fondo: #f5f5f5; // Fondo claro
+$color-hover: #1abc9c; // Verde agua para destacar
+$color-borde: #bdc3c7; // Gris claro
+
+// 📌 CONFIGURACIONES GENERALES
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background: $color-fondo;
+  color: $color-primario;
+}
+
+// 📌 CONTENEDOR PRINCIPAL
+.admin-container {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 70px auto 50px;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar content"
+    "sidebar footer";
+  height: 100vh;
+}
+
+// 🔹 HEADER
+.header {
+  grid-area: header;
+  background: $color-primario;
+  color: $color-texto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+  .logo {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 40px;
+      margin-right: 10px;
+    }
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .doctor-photo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid $color-hover;
+    }
+
+    .dropdown {
+      position: relative;
+
+      .dropdown-toggle {
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: $color-texto;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        right: 0;
+        background: $color-primario;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        padding: 10px;
+
+        a {
+          color: $color-texto;
+          padding: 5px 10px;
+          text-decoration: none;
+          display: block;
+          transition: background 0.3s;
+
+          &:hover {
+            background: $color-hover;
+          }
+        }
+      }
+
+      &:hover .dropdown-menu {
+        display: flex;
+      }
+    }
+  }
+}
+
+// 🔹 SIDEBAR
+.sidebar {
+  grid-area: sidebar;
+  background: $color-secundario;
+  color: $color-texto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  .sidebar-header {
+    margin-bottom: 20px;
+    text-align: center;
+
+    h2 {
+      font-size: 20px;
+    }
+  }
+
+  .sidebar-nav {
+    width: 100%;
+
+    ul {
+      list-style: none;
+
+      li {
+        margin-bottom: 15px;
+
+        a {
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          color: $color-texto;
+          text-decoration: none;
+          font-size: 16px;
+          border-radius: 5px;
+          transition: background 0.3s ease;
+
+          &:hover, &.active {
+            background: $color-hover;
+          }
+
+          i {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 🔹 CONTENIDO PRINCIPAL
+.content {
+  grid-area: content;
+  padding: 20px;
+  overflow-y: auto;
+
+  .welcome {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+    .doctor-photo-large {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid $color-hover;
+    }
+
+    h2 {
+      margin: 10px 0;
+      font-size: 22px;
+    }
+
+    button {
+      margin: 10px 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      background: $color-primario;
+      color: white;
+
+      &:hover {
+        background: $color-hover;
+      }
+    }
+  }
+}
+
+// 📊 NUEVO DISEÑO PARA RESUMEN DIARIO (ELEGANTE Y MODERNO)
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2); /* Fondo semitransparente */
+  backdrop-filter: blur(10px); /* Efecto vidrio */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+  animation: fadeInUp 0.6s ease-in-out;
+
+  .card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: scale(1.08);
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    i {
+      font-size: 30px;
+      color: $color-hover;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: $color-primario;
+      margin-bottom: 5px;
+    }
+
+    .content {
+      font-size: 15px;
+      color: $color-secundario;
+    }
+  }
+}
+
+// 🔥 ANIMACIÓN DE ENTRADA
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+// 🔹 TABLAS
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid $color-borde;
+  }
+
+  th {
+    background: $color-secundario;
+    color: $color-texto;
+  }
+
+  tr:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+// ⚡ DISEÑO MEJORADO PARA ATAJOS RÁPIDOS
+.shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; // Espaciado entre botones
+  padding: 15px;
+  background: white;
+  border-radius: 10px; // Bordes redondeados
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+  button, .shortcut-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px; // Espacio entre icono y texto
+    background: $color-primario; // Color principal del sistema
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      background: $color-hover; // Cambio de color al pasar el mouse
+      transform: translateY(-2px);
+    }
+
+    i {
+      font-size: 18px; // Aumentar tamaño del icono
+    }
+  }
+
+  // 📌 Campos de búsqueda y filtro mejorados
+  .search-input {
+    padding: 8px 12px;
+    border: 1px solid $color-borde;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 180px;
+    transition: 0.3s ease-in-out;
+
+    &:focus {
+      border-color: $color-hover;
+      outline: none;
+      box-shadow: 0px 0px 5px rgba(26, 188, 156, 0.5);
+    }
+  }
+
+  .date-input {
+    padding: 8px 12px;
+    border: 1px solid $color-borde;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 120px;
+    text-align: center;
+  }
+}
+/* 📌 ESTILO PARA FILTROS DE ÚLTIMAS ATENCIONES */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre elementos */
+  background: #f8f9fa;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+
+  .search-input, .date-input {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: 0.3s;
+
+    &:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      outline: none;
+    }
+  }
+
+  .filter-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: 0.3s;
+
+    &:hover {
+      background: #0056b3;
+    }
+
+    i {
+      font-size: 16px;
+    }
+  }
+}
+
+/* 🎀 ESTILO PARA EL TÍTULO */
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* 🎨 Estilos Generales */
+:host {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  color: #2c3e50;
+}
+
+/* 📌 Contenedor Principal */
+.contenedor {
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+/* 🔹 Botones Elegantes */
+.boton {
+  background: linear-gradient(135deg, #1abc9c, #16a085);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 15px rgba(26, 188, 156, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+/* 🌙 Modo Oscuro */
+.modo-oscuro {
+  background: #2c3e50 !important;
+  color: #ecf0f1 !important;
+  
+  .contenedor {
+    background: #34495e;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .boton {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+  }
+}
+
+/* 📌 Secciones con Transición Suave */
+.seccion {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* 📋 Tabla de Atenciones */
+.tabla-atenciones {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-in-out;
+  
+  th, td {
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  th {
+    background: #1abc9c;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  tr:nth-child(even) {
+    background: #f2f2f2;
+  }
+
+  tr:hover {
+    background: rgba(26, 188, 156, 0.1);
+    transition: background 0.3s ease-in-out;
+  }
+}
+
+/* 🔔 Notificaciones con Animación */
+.notificacion {
+  background: #ffdd57;
+  color: #333;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+
+  &:hover {
+    background: #f4c542;
+  }
+}
+
+/* 📈 ESTADÍSTICAS Y REPORTES VISUALES */
+.stats-reports {
+  padding: 2rem;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+
+  .charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .chart {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    .chart-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .chart-box {
+      padding: 1rem;
+      background: #f3f3f3;
+      border-radius: 8px;
+    }
+  }
+
+  .download-report {
+    display: block;
+    margin: 2rem auto 0;
+    background: #3498db;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      background: #217dbb;
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* 📅 PRÓXIMAS CITAS PROGRAMADAS */
+.upcoming-appointments {
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
+
+  .appointments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .appointment {
+    background: #ecf0f1;
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .appointment-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #34495e;
+    }
+
+    .appointment-info,
+    .appointment-location {
+      font-size: 1rem;
+      color: #666;
+    }
+  }
+}
+
+/* 📂 DOCUMENTOS Y ARCHIVOS MÉDICOS */
+.medical-documents {
+  padding: 2rem;
+  background: #f7f7f7;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
+
+  .documents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .document {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .document-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #34495e;
+    }
+
+    .document-date {
+      font-size: 1rem;
+      color: #666;
+    }
+
+  }
+
+  .upload-btn {
+    display: block;
+    margin: 2rem auto 0;
+    background: #8e44ad;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      background: #732d91;
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* 🎯 Estilos generales para los botones pequeños */
+.small-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  background: #2ecc71; 
+  color: white;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+
+  /* 🔹 Evitar que se agrande */
+  width: auto !important; // ❌ Evita que herede un ancho grande
+  max-width: fit-content !important;
+  min-width: unset !important;
+  white-space: nowrap; // 🔹 Evita que el texto haga que se expanda
+
+  &:hover {
+    background: darken(#2ecc71, 10%);
+    transform: scale(1.05);
+  }
+}
+
+
+/* 🟢 Estilos específicos para "Marcar como Atendida" */
+.attended-btn {
+  background: rgba(120, 144, 156, 0.2); // 🎨 Gris azulado translúcido
+  color: #37474f; // 🔹 Texto gris oscuro
+  border: 1px solid rgba(120, 144, 156, 0.4); // 🔹 Borde sutil
+
+  &:hover {
+    background: rgba(120, 144, 156, 0.3);
+    border-color: rgba(120, 144, 156, 0.6);
+  }
+}
+
+/* 🟠 Estilos específicos para "Descargar" */
+.download-btn {
+  background: rgba(97, 97, 97, 0.2); // 🎨 Gris oscuro translúcido
+  color: #424242; // 🔹 Texto gris intenso
+  border: 1px solid rgba(97, 97, 97, 0.4); // 🔹 Borde sutil
+
+  &:hover {
+    background: rgba(97, 97, 97, 0.3);
+    border-color: rgba(97, 97, 97, 0.6);
+  }
+}
+
+/* 🔍 Estilo para la barra de búsqueda */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+  margin-bottom: 1rem;
+
+  .search-bar {
+    width: 100%;
+    padding: 10px 40px 10px 12px; // Espacio para el ícono
+    font-size: 14px;
+    border: 1px solid rgba(150, 150, 150, 0.4);
+    border-radius: 8px;
+    background: rgba(240, 240, 240, 0.6);
+    transition: all 0.3s ease-in-out;
+    color: #333;
+
+    &:focus {
+      background: #ffffff;
+      border-color: rgba(100, 100, 100, 0.6);
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+      outline: none;
+    }
+  }
+
+  /* 🔍 Icono dentro del input */
+  &::before {
+    position: absolute;
+    right: 12px;
+    font-size: 16px;
+    color: rgba(100, 100, 100, 0.6);
+    pointer-events: none;
+  }
+}
+
+
+/* ✅ Mensaje cuando no hay resultados */
+.no-results {
+  text-align: center;
+  color: #e74c3c; /* Rojo elegante */
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+  background: #fdecea;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 5px solid #c0392b;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* ✅ Botón "Ver más" elegante y discreto */
+.see-more-btn {
+  display: block;
+  background: transparent;
+  color: #3498db; /* Azul llamativo */
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: right; /* Alineado a la derecha */
+  margin-top: 5px;
+  padding: 5px;
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: #1abc9c; /* Verde agua en hover */
+    text-decoration: underline;
+  }
+}
+
+/* 🌟 ANIMACIONES */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🔔 Notificaciones en Tiempo Real */
+.notifications {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .notifications-btn {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+    border: none;
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.3s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .notif-count {
+      background: rgba(255, 0, 0, 0.8);
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 50%;
+      padding: 4px 7px;
+      margin-left: 6px;
+    }
+  }
+
+  .notif-dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 250px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 100;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        padding: 12px;
+        font-size: 14px;
+        color: #444;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        transition: 0.3s ease;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
+      }
+
+      li:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+/* 📌 Sección Pacientes */
+.contenedor-pacientes {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+/* 🔵 Encabezado */
+.header-pacientes {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.titulo-seccion {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 🛠️ Filtros */
+.filtros-pacientes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.input-busqueda,
+.select-filtro {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.input-busqueda:focus,
+.select-filtro:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* ➕ Botón Nuevo Paciente */
+.btn-nuevo {
+  padding: 8px 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.btn-nuevo:hover {
+  background: #0056b3;
+}
+
+/* 📋 Listado de Pacientes */
+.lista-pacientes {
+  margin-top: 20px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-pacientes {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-pacientes th,
+.tabla-pacientes td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla-pacientes th {
+  background: #f1f1f1;
+  font-weight: 600;
+}
+
+.btn-ver {
+  background: #17a2b8;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+.btn-editar {
+  background: #ffc107;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+.btn-eliminar {
+  background: #dc3545;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+/* 📋 Formulario de Registro */
+.formulario-paciente {
+  margin-top: 20px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.titulo-formulario {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.pestañas-formulario {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.btn-pestaña {
+  padding: 6px 12px;
+  background: #e9ecef;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-pestaña:hover {
+  background: #d6d8db;
+}
+
+.input-formulario,
+.select-formulario {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.acciones-formulario {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.btn-guardar {
+  background: #28a745;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.btn-cancelar {
+  background: #6c757d;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+/* 🏥 Historial Médico */
+.historial-medico {
+  margin-top: 20px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.titulo-historial {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.pestañas-historial {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.seccion-historial p {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.encabezado-tabla th {
+  color: #000 !important;  // Cambia el color del texto (puedes poner otro color)
+  background-color: #f8f9fa;  // Opcional: color de fondo más claro
+  font-weight: bold;  // Hace que el texto sea más grueso
+  text-align: left;  // Alinea el texto a la izquierda
+  padding: 12px;  // Da espacio dentro de las celdas
+  opacity: 1;  // Asegura que los textos sean visibles
+}
+
+
+
+// 🔹 FOOTER
+.footer {
+  grid-area: footer;
+  background: $color-primario;
+  color: $color-texto;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+}
+
+// 🔥 ANIMACIONES
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.summary-cards, .card, table {
+  animation: fadeIn 0.5s ease-in-out;
+}

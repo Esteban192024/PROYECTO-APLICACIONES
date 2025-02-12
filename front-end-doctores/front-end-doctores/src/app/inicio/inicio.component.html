@@ -1,0 +1,23 @@
+<div class="inicio-container">
+  <div class="background-slider">
+    <div class="slide" style="background-image: url('/assets/img/bg1.jpg');"></div>
+    <div class="slide" style="background-image: url('/assets/img/bg2.jpg');"></div>
+    <div class="slide" style="background-image: url('/assets/img/bg3.jpg');"></div>
+  </div>
+
+  <div class="inicio-card">
+    <img src="/assets/img/logo.svg" alt="Fénix Medical" class="logo" />
+    <h2>Bienvenido a Consultorio Fénix Medical</h2>
+    <p>Por favor, selecciona tu rol y haz clic en iniciar sesión.</p>
+
+    <div class="role-selector">
+      <label for="role">Seleccione su Rol:</label>
+      <select id="role" [(ngModel)]="rol">
+        <option value="Doctor">Doctor</option>
+        <option value="Administrador">Administrador</option>
+      </select>
+    </div>
+
+    <button (click)="iniciarSesion()" class="btn-iniciar">Iniciar Sesión</button>
+  </div>
+</div>

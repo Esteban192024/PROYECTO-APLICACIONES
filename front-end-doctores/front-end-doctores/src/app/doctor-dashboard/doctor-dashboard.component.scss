@@ -1,0 +1,1249 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #fcfafc;
+    color: #7e3b8f;
+  }
+  
+  .dashboard-container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 250px 1fr;
+    grid-template-areas:
+      "header header"
+      "sidebar main"
+      "footer footer";
+    height: 100vh;
+  }
+  
+/* Encabezado */
+.dashboard-header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #7e3b8f;
+  color: #ffffff;
+  padding: 10px 50px; /* Ajustado para que coincida con el diseño de "Perfil" */
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Asegura que se mantenga encima de otros elementos */
+
+  .header-left .logo {
+    height: 50px; /* Ajustado para que coincida con el diseño de "Perfil" */
+    margin-right: 10px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+
+    .doctor-name {
+      font-size: 16px;
+      margin-right: 20px; /* Espaciado consistente con el diseño de "Perfil" */
+    }
+
+    .header-btn {
+      background-color: #60978d; /* Mismo color de "Perfil" */
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px; /* Ajustado para coincidir con "Perfil" */
+      margin-left: 10px; /* Espaciado uniforme entre botones */
+      cursor: pointer;
+      font-size: 14px;
+
+      &:hover {
+        background-color: #5b5b8d; /* Color de hover igual al de "Perfil" */
+        transition: background-color 0.3s ease; /* Transición suave */
+      }
+    }
+  }
+}
+
+  
+  /* Menú de navegación */
+  .dashboard-sidebar {
+    grid-area: sidebar;
+    background-color: #60978d;
+    color: #ffffff;
+    padding: 20px;
+  }
+  
+  .dashboard-sidebar nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .dashboard-sidebar nav ul li {
+    margin: 15px 0;
+  }
+  
+  .dashboard-sidebar nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .dashboard-sidebar nav ul li a:hover {
+    color: #fcfafc;
+    font-weight: bold;
+  }
+  
+  /* Cuerpo Principal */
+  .dashboard-main {
+    grid-area: main;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  /* Sección de bienvenida */
+  .welcome-section h1 {
+    color: #7e3b8f;
+    margin-bottom: 10px;
+  }
+  
+  .welcome-section p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .daily-summary {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .summary-card {
+    background-color: #ffffff;
+    border: 1px solid #7e3b8f;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .summary-card h3 {
+    color: #60978d;
+    margin-bottom: 10px;
+  }
+  
+  .summary-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #7e3b8f;
+  }
+  
+  /* Sección de atajos */
+  .shortcuts-section {
+    margin-top: 30px;
+  }
+  
+  .shortcuts {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .shortcut-btn {
+    background-color: #7e3b8f;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .shortcut-btn:hover {
+    background-color: #60978d;
+  }
+  
+  /* Últimas Atenciones */
+  .recent-attentions table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .recent-attentions th,
+  .recent-attentions td {
+    border: 1px solid #7e3b8f;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .recent-attentions th {
+    background-color: #7e3b8f;
+    color: #ffffff;
+  }
+  
+  .recent-attentions td {
+    background-color: #ffffff;
+  }
+  
+  .action-btn {
+    background-color: #60978d;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .action-btn:hover {
+    background-color: #7e3b8f;
+  }
+  
+  .pacientes-section {
+    h1 {
+      color: #7e3b8f;
+      margin-bottom: 20px;
+    }
+  
+    .busqueda-avanzada, .registro-pacientes {
+      margin-bottom: 30px;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+    }
+  
+    label {
+      display: block;
+      font-weight: bold;
+      color: #60978d;
+      margin-bottom: 5px;
+    }
+  
+    input, textarea {
+      width: 80%; /* Cambiar el tamaño de ancho */
+      max-width: 300px; /* Limitar el tamaño máximo */
+      padding: 8px; /* Reducir el relleno */
+      border: 1px solid #7e3b8f;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+  
+    textarea {
+      height: 80px; /* Tamaño prudente para textos largos */
+    }
+  
+    input:focus, textarea:focus {
+      border-color: #60978d;
+    }
+  
+    .btn-buscar, .btn-registrar {
+      background-color: #7e3b8f;
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px; /* Botones más compactos */
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    .btn-buscar:hover, .btn-registrar:hover {
+      background-color: #60978d;
+    }
+  }
+
+/* Estilos para la sección de Atención Médica */
+.atencion-medica-section {
+  padding: 20px;
+  background-color: #fcfafc;
+
+  h1 {
+    color: #7e3b8f;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Estilos para Registrar Nueva Atención Médica */
+  .registrar-atencion {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      .form-group {
+        flex: 1 1 45%; /* Tamaño de los campos */
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-size: 14px;
+          color: #333;
+          margin-bottom: 5px;
+        }
+
+        input,
+        textarea {
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 8px;
+          font-size: 13px;
+          color: #333;
+
+          &:focus {
+            border-color: #7e3b8f;
+            outline: none;
+          }
+        }
+
+        textarea {
+          resize: vertical;
+        }
+      }
+
+      .btn-registrar-atencion {
+        background-color: #60978d;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #7e3b8f;
+          transition: background-color 0.3s ease;
+        }
+      }
+    }
+  }
+
+  /* Estilos para el Historial Clínico */
+  .historial-clinico {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background-color: #60978d;
+        color: #ffffff;
+
+        th {
+          text-align: left;
+          padding: 8px;
+          font-size: 14px;
+        }
+      }
+
+      tbody {
+        tr {
+          &:nth-child(odd) {
+            background-color: #fcfafc;
+          }
+
+          &:nth-child(even) {
+            background-color: #ffffff;
+          }
+
+          &:hover {
+            background-color: #7e3b8f;
+            color: #ffffff;
+            cursor: pointer;
+          }
+
+          td {
+            padding: 8px;
+            font-size: 13px;
+            border-bottom: 1px solid #ccc;
+          }
+
+          .action-btn {
+            background-color: #60978d;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #7e3b8f;
+              transition: background-color 0.3s ease;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* Estilos para Diagnósticos y Selección de CIE10 */
+  .diagnosticos-cie10 {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .cie10-busqueda {
+      margin-bottom: 20px;
+
+      label {
+        font-size: 14px;
+        color: #333;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input {
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 8px;
+        font-size: 13px;
+
+        &:focus {
+          border-color: #7e3b8f;
+          outline: none;
+        }
+      }
+
+      ul {
+        margin-top: 10px;
+        list-style: none;
+        padding: 0;
+
+        li {
+          background-color: #fcfafc;
+          border: 1px solid #ccc;
+          padding: 8px;
+          border-radius: 5px;
+          margin-bottom: 5px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #60978d;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    .cie10-seleccionados {
+      h3 {
+        color: #7e3b8f;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          background-color: #fcfafc;
+          border: 1px solid #ccc;
+          padding: 8px;
+          border-radius: 5px;
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}
+
+/*Certificados Médicos*/
+.certificados-section {
+  padding: 20px;
+  background-color: #fcfafc;
+
+  h1 {
+    color: #7e3b8f;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Generar Certificado */
+  .generar-certificado {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      .form-group {
+        flex: 1 1 45%; /* Tamaño de los campos */
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-size: 14px;
+          color: #333;
+          margin-bottom: 5px;
+        }
+
+        input,
+        textarea {
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 8px;
+          font-size: 13px;
+          color: #333;
+
+          &:focus {
+            border-color: #7e3b8f;
+            outline: none;
+          }
+        }
+
+        textarea {
+          resize: vertical;
+        }
+      }
+
+      .btn-generar-certificado {
+        background-color: #60978d;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #7e3b8f;
+          transition: background-color 0.3s ease;
+        }
+      }
+    }
+  }
+
+  /* Lista de Certificados Generados */
+  .lista-certificados {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background-color: #60978d;
+        color: #ffffff;
+
+        th {
+          text-align: left;
+          padding: 8px;
+          font-size: 14px;
+        }
+      }
+
+      tbody {
+        tr {
+          &:nth-child(odd) {
+            background-color: #fcfafc;
+          }
+
+          &:nth-child(even) {
+            background-color: #ffffff;
+          }
+
+          &:hover {
+            background-color: #7e3b8f;
+            color: #ffffff;
+            cursor: pointer;
+          }
+
+          td {
+            padding: 8px;
+            font-size: 13px;
+            border-bottom: 1px solid #ccc;
+          }
+
+          .action-btn {
+            background-color: #60978d;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #7e3b8f;
+              transition: background-color 0.3s ease;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.recetas-section {
+  padding: 20px;
+  background-color: #fcfafc;
+
+  h1 {
+    color: #7e3b8f;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Crear Nueva Receta */
+  .crear-receta {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      .form-group {
+        flex: 1 1 45%; /* Ajusta el tamaño de los campos */
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-size: 14px;
+          color: #333;
+          margin-bottom: 5px;
+        }
+
+        input,
+        textarea {
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 8px;
+          font-size: 13px;
+          color: #333;
+
+          &:focus {
+            border-color: #7e3b8f;
+            outline: none;
+          }
+        }
+
+        textarea {
+          resize: vertical;
+        }
+      }
+
+      .btn-crear-receta {
+        background-color: #60978d;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #7e3b8f;
+          transition: background-color 0.3s ease;
+        }
+      }
+    }
+  }
+
+  /* Plantillas de Medicamentos Frecuentes */
+  .plantillas-recetas {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        background-color: #fcfafc;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #333;
+
+        &:hover {
+          background-color: #60978d;
+          color: #ffffff;
+          transition: background-color 0.3s ease;
+        }
+      }
+    }
+  }
+
+  /* Lista de Recetas Generadas */
+  .lista-recetas {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background-color: #60978d;
+        color: #ffffff;
+
+        th {
+          text-align: left;
+          padding: 8px;
+          font-size: 14px;
+        }
+      }
+
+      tbody {
+        tr {
+          &:nth-child(odd) {
+            background-color: #fcfafc;
+          }
+
+          &:nth-child(even) {
+            background-color: #ffffff;
+          }
+
+          &:hover {
+            background-color: #7e3b8f;
+            color: #ffffff;
+            cursor: pointer;
+          }
+
+          td {
+            padding: 8px;
+            font-size: 13px;
+            border-bottom: 1px solid #ccc;
+          }
+
+          .action-btn {
+            background-color: #60978d;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #7e3b8f;
+              transition: background-color 0.3s ease;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Reportes Médicos */
+.reportes-section {
+  padding: 20px;
+  background-color: #fcfafc;
+
+  h1 {
+    color: #7e3b8f;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Generar Reporte */
+  .generar-reporte {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      .form-group {
+        flex: 1 1 30%; /* Ajusta el tamaño de los campos */
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-size: 14px;
+          color: #333;
+          margin-bottom: 5px;
+        }
+
+        input,
+        select {
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 8px;
+          font-size: 13px;
+          color: #333;
+
+          &:focus {
+            border-color: #7e3b8f;
+            outline: none;
+          }
+        }
+      }
+
+      .btn-generar-reporte {
+        background-color: #60978d;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #7e3b8f;
+          transition: background-color 0.3s ease;
+        }
+      }
+    }
+  }
+
+  /* Visualización Gráfica */
+  .visualizacion-grafica {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .graficas-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+
+      .grafica {
+        flex: 1;
+        background-color: #fcfafc;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        height: 200px; /* Tamaño de las gráficas */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        color: #333;
+
+        &:hover {
+          background-color: #60978d;
+          color: #ffffff;
+          transition: background-color 0.3s ease;
+        }
+      }
+    }
+  }
+
+  /* Detalles del Reporte */
+  .detalles-reporte {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background-color: #60978d;
+        color: #ffffff;
+
+        th {
+          text-align: left;
+          padding: 8px;
+          font-size: 14px;
+        }
+      }
+
+      tbody {
+        tr {
+          &:nth-child(odd) {
+            background-color: #fcfafc;
+          }
+
+          &:nth-child(even) {
+            background-color: #ffffff;
+          }
+
+          &:hover {
+            background-color: #7e3b8f;
+            color: #ffffff;
+            cursor: pointer;
+          }
+
+          td {
+            padding: 8px;
+            font-size: 13px;
+            border-bottom: 1px solid #ccc;
+          }
+        }
+      }
+    }
+  }
+}
+
+  
+/* Registro de Citas */
+.registro-citas-section {
+  padding: 20px;
+  background-color: #fcfafc;
+
+  h1 {
+    color: #7e3b8f;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Agendar Nueva Cita */
+  .agendar-cita {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      .form-group {
+        flex: 1 1 45%; /* Ajusta el tamaño de los campos */
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-size: 14px;
+          color: #333;
+          margin-bottom: 5px;
+        }
+
+        input {
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 8px;
+          font-size: 13px;
+          color: #333;
+
+          &:focus {
+            border-color: #7e3b8f;
+            outline: none;
+          }
+        }
+      }
+
+      .btn-agendar-cita {
+        background-color: #60978d;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #7e3b8f;
+          transition: background-color 0.3s ease;
+        }
+      }
+    }
+  }
+
+  /* Calendario de Citas */
+  .calendario-citas {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background-color: #60978d;
+        color: #ffffff;
+
+        th {
+          text-align: left;
+          padding: 8px;
+          font-size: 14px;
+        }
+      }
+
+      tbody {
+        tr {
+          &:nth-child(odd) {
+            background-color: #fcfafc;
+          }
+
+          &:nth-child(even) {
+            background-color: #ffffff;
+          }
+
+          &:hover {
+            background-color: #7e3b8f;
+            color: #ffffff;
+            cursor: pointer;
+          }
+
+          td {
+            padding: 8px;
+            font-size: 13px;
+            border-bottom: 1px solid #ccc;
+          }
+
+          .action-btn {
+            background-color: #60978d;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #7e3b8f;
+              transition: background-color 0.3s ease;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Configuraciones */
+.configuraciones-section {
+  padding: 20px;
+  background-color: #fcfafc;
+
+  h1 {
+    color: #7e3b8f;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Estilo general para secciones dentro de Configuraciones */
+  section {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #7e3b8f;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      .form-group {
+        flex: 1 1 45%; /* Ajusta el tamaño de los campos */
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-size: 14px;
+          color: #333;
+          margin-bottom: 5px;
+        }
+
+        input,
+        select {
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 8px;
+          font-size: 13px;
+          color: #333;
+
+          &:focus {
+            border-color: #7e3b8f;
+            outline: none;
+          }
+        }
+      }
+
+      button {
+        background-color: #60978d;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #7e3b8f;
+          transition: background-color 0.3s ease;
+        }
+      }
+    }
+  }
+
+  /* Estilo específico para Cambiar Contraseña */
+  .cambiar-password {
+    form {
+      .form-group {
+        input[type='password'] {
+          font-family: 'Courier New', Courier, monospace; /* Para diferenciar campos de contraseña */
+        }
+      }
+    }
+  }
+
+  /* Estilo específico para Preferencias del Sistema */
+  .preferencias-sistema {
+    form {
+      .form-group {
+        select {
+          background-color: #fcfafc;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+
+/* Pie de Página */
+.dashboard-footer {
+    grid-area: footer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #7e3b8f;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .dashboard-footer p {
+    margin: 0;
+  }
+  
+  .dashboard-footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .dashboard-footer a:hover {
+    text-decoration: underline;
+  }
+  

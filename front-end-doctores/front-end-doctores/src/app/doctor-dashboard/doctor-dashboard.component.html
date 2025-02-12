@@ -1,0 +1,606 @@
+<div class="dashboard-container">
+  <!-- Encabezado -->
+  <header class="dashboard-header">
+    <div class="header-left">
+      <img src="assets/logo.png" alt="Fénix Medical" class="logo" />
+    </div>
+    <div class="header-right">
+      <span class="doctor-name">{{ doctorName }}</span>
+      <div class="header-options">
+        <button class="header-btn" routerLink="/perfil">Perfil</button>
+        <button class="header-btn" (click)="cerrarSesion()">Cerrar Sesión</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menú de Navegación -->
+  <aside class="dashboard-sidebar">
+    <nav>
+      <ul>
+        <li><a (click)="mostrarSeccion('inicio')">Inicio</a></li>
+        <li><a (click)="mostrarSeccion('pacientes')">Pacientes</a></li>
+        <li><a (click)="mostrarSeccion('atencion-medica')">Atenciones Médicas</a></li>
+        <li><a (click)="mostrarSeccion('certificados')">Certificados Médicos</a></li>
+        <li><a (click)="mostrarSeccion('recetas')">Recetas</a></li>
+        <li><a (click)="mostrarSeccion('reportes')">Reportes Médicos</a></li>
+        <li><a (click)="mostrarSeccion('registro-citas')">Registro de Citas</a></li>
+        <li><a (click)="mostrarSeccion('configuraciones')">Configuraciones</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Cuerpo Principal -->
+  <main class="dashboard-main">
+    <!-- Inicio -->
+    <section *ngIf="seccionActual === 'inicio'" class="welcome-section">
+      <h1>¡Buenos días, {{ doctorName }}!</h1>
+      <p>Resumen de tu día:</p>
+      <div class="daily-summary">
+        <div class="summary-card">
+          <h3>Pacientes Atendidos</h3>
+          <p>{{ summary.pacientesAtendidos }}</p>
+        </div>
+        <div class="summary-card">
+          <h3>Especialidades Más Demandadas</h3>
+          <p>{{ summary.especialidadesDemandadas.join(', ') }}</p>
+        </div>
+        <div class="summary-card">
+          <h3>Próximas Citas</h3>
+          <p>{{ summary.proximasCitas }} citas pendientes</p>
+        </div>
+      </div>
+
+      <!-- Atajos Rápidos -->
+      <section class="shortcuts-section">
+        <h2>Atajos Rápidos</h2>
+        <div class="shortcuts">
+          <button class="shortcut-btn" (click)="mostrarSeccion('atencion-medica')">Registrar Atención Médica</button>
+          <button class="shortcut-btn" (click)="mostrarSeccion('pacientes')">Consultar Pacientes</button>
+          <button class="shortcut-btn" (click)="mostrarSeccion('reportes')">Generar Reporte</button>
+        </div>
+      </section>
+
+      <!-- Últimas Atenciones -->
+      <section class="recent-attentions">
+        <h2>Últimas Atenciones</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID Atención</th>
+              <th>Nombre del Paciente</th>
+              <th>Cédula</th>
+              <th>Fecha</th>
+              <th>Diagnóstico</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>001</td>
+              <td>Juan Pérez</td>
+              <td>1234567890</td>
+              <td>2024-12-20</td>
+              <td>Hipertensión</td>
+              <td>
+                <button class="action-btn">Ver</button>
+                <button class="action-btn">Editar</button>
+                <button class="action-btn">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
+    <!-- Pacientes -->
+    <section *ngIf="seccionActual === 'pacientes'" class="pacientes-section">
+      <h1>Módulo de Pacientes</h1>
+
+      <!-- Búsqueda Avanzada -->
+      <section class="busqueda-avanzada">
+        <h2>Búsqueda Avanzada</h2>
+        <form (ngSubmit)="buscarPaciente()">
+          <div class="form-group">
+            <label for="cedula">Cédula:</label>
+            <input type="text" id="cedula" [(ngModel)]="filtros.cedula" name="cedula" />
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" [(ngModel)]="filtros.nombre" name="nombre" />
+          </div>
+          <div class="form-group">
+            <label for="historial">Historial Médico:</label>
+            <input type="text" id="historial" [(ngModel)]="filtros.historial" name="historial" />
+          </div>
+          <button type="submit" class="btn-buscar">Buscar</button>
+        </form>
+      </section>
+
+      <!-- Registro de Nuevos Pacientes -->
+      <section class="registro-pacientes">
+        <h2>Registrar Nuevo Paciente</h2>
+        <form (ngSubmit)="registrarPaciente()">
+          <div class="form-group">
+            <label for="nombrePaciente">Nombre:</label>
+            <input type="text" id="nombrePaciente" [(ngModel)]="nuevoPaciente.nombre" name="nombrePaciente" required />
+          </div>
+          <div class="form-group">
+            <label for="cedulaPaciente">Cédula:</label>
+            <input type="text" id="cedulaPaciente" [(ngModel)]="nuevoPaciente.cedula" name="cedulaPaciente" required />
+          </div>
+          <div class="form-group">
+            <label for="historialPaciente">Historial Médico:</label>
+            <textarea id="historialPaciente" [(ngModel)]="nuevoPaciente.historial" name="historialPaciente"></textarea>
+          </div>
+          <button type="submit" class="btn-registrar">Registrar</button>
+        </form>
+      </section>
+    </section>
+
+        <!-- Atenciones Médicas -->
+        <section *ngIf="seccionActual === 'atencion-medica'" class="atencion-medica-section">
+          <h1>Módulo de Atenciones Médicas</h1>
+    
+          <!-- Registrar Nueva Atención Médica -->
+          <section class="registrar-atencion">
+            <h2>Registrar Nueva Atención Médica</h2>
+            <form (ngSubmit)="registrarAtencion()">
+              <div class="form-group">
+                <label for="idAtencion">ID Atención:</label>
+                <input type="text" id="idAtencion" [(ngModel)]="nuevaAtencion.idAtencion" name="idAtencion" required />
+              </div>
+              <div class="form-group">
+                <label for="nombrePaciente">Nombre del Paciente:</label>
+                <input type="text" id="nombrePaciente" [(ngModel)]="nuevaAtencion.nombrePaciente" name="nombrePaciente" required />
+              </div>
+              <div class="form-group">
+                <label for="cedulaPaciente">Cédula:</label>
+                <input type="text" id="cedulaPaciente" [(ngModel)]="nuevaAtencion.cedula" name="cedulaPaciente" required />
+              </div>
+              <div class="form-group">
+                <label for="fechaAtencion">Fecha:</label>
+                <input type="date" id="fechaAtencion" [(ngModel)]="nuevaAtencion.fecha" name="fechaAtencion" required />
+              </div>
+              <div class="form-group">
+                <label for="diagnostico">Diagnóstico:</label>
+                <textarea id="diagnostico" [(ngModel)]="nuevaAtencion.diagnostico" name="diagnostico"></textarea>
+              </div>
+              <button type="submit" class="btn-registrar-atencion">Registrar</button>
+            </form>
+          </section>
+    
+          <!-- Consultar y Editar Historial Clínico -->
+          <section class="historial-clinico">
+            <h2>Historial Clínico</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID Atención</th>
+                  <th>Nombre del Paciente</th>
+                  <th>Cédula</th>
+                  <th>Fecha</th>
+                  <th>Diagnóstico</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let atencion of atencionesMedicas">
+                  <td>{{ atencion.idAtencion }}</td>
+                  <td>{{ atencion.nombrePaciente }}</td>
+                  <td>{{ atencion.cedula }}</td>
+                  <td>{{ atencion.fecha }}</td>
+                  <td>{{ atencion.diagnostico }}</td>
+                  <td>
+                    <button class="action-btn" (click)="verAtencion(atencion)">Ver</button>
+                    <button class="action-btn" (click)="editarAtencion(atencion)">Editar</button>
+                    <button class="action-btn" (click)="eliminarAtencion(atencion)">Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+    
+          <!-- Diagnósticos y Selección de CIE10 -->
+          <section class="diagnosticos-cie10">
+            <h2>Diagnósticos y Selección de CIE10</h2>
+            <div class="cie10-busqueda">
+              <label for="buscarCIE10">Buscar CIE10:</label>
+              <input
+                type="text"
+                id="buscarCIE10"
+                [(ngModel)]="busquedaCIE10"
+                (input)="buscarCIE10()"
+                placeholder="Buscar por código o descripción"
+              />
+              <ul *ngIf="resultadosCIE10.length > 0">
+                <li *ngFor="let resultado of resultadosCIE10" (click)="seleccionarCIE10(resultado)">
+                  {{ resultado.codigo }} - {{ resultado.descripcion }}
+                </li>
+              </ul>
+            </div>
+            <div class="cie10-seleccionados">
+              <h3>Diagnósticos Seleccionados</h3>
+              <ul>
+                <li *ngFor="let diagnostico of diagnosticosSeleccionados">
+                  {{ diagnostico.codigo }} - {{ diagnostico.descripcion }}
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+
+                <!-- Certificados Médicos -->
+        <section *ngIf="seccionActual === 'certificados'" class="certificados-section">
+          <h1>Módulo de Certificados Médicos</h1>
+
+          <!-- Generar Certificado -->
+          <section class="generar-certificado">
+            <h2>Generar Certificado Médico</h2>
+            <form (ngSubmit)="generarCertificado()">
+              <div class="form-group">
+                <label for="nombrePacienteCertificado">Nombre del Paciente:</label>
+                <input
+                  type="text"
+                  id="nombrePacienteCertificado"
+                  [(ngModel)]="nuevoCertificado.nombrePaciente"
+                  name="nombrePacienteCertificado"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="diagnosticoCertificado">Diagnóstico:</label>
+                <textarea
+                  id="diagnosticoCertificado"
+                  [(ngModel)]="nuevoCertificado.diagnostico"
+                  name="diagnosticoCertificado"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="reposoCertificado">Días de Reposo:</label>
+                <input
+                  type="number"
+                  id="reposoCertificado"
+                  [(ngModel)]="nuevoCertificado.reposo"
+                  name="reposoCertificado"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn-generar-certificado">Generar Certificado</button>
+            </form>
+          </section>
+
+          <!-- Lista de Certificados Generados -->
+          <section class="lista-certificados">
+            <h2>Certificados Generados</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre del Paciente</th>
+                  <th>Diagnóstico</th>
+                  <th>Días de Reposo</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let certificado of certificadosMedicos">
+                  <td>{{ certificado.nombrePaciente }}</td>
+                  <td>{{ certificado.diagnostico }}</td>
+                  <td>{{ certificado.reposo }}</td>
+                  <td>
+                    <button class="action-btn" (click)="verCertificado(certificado)">Ver</button>
+                    <button class="action-btn" (click)="editarCertificado(certificado)">Editar</button>
+                    <button class="action-btn" (click)="eliminarCertificado(certificado)">Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+
+        <!-- Recetas Médicas -->
+        <section *ngIf="seccionActual === 'recetas'" class="recetas-section">
+          <h1>Módulo de Recetas Médicas</h1>
+
+          <!-- Crear Nueva Receta -->
+          <section class="crear-receta">
+            <h2>Crear Nueva Receta</h2>
+            <form (ngSubmit)="crearReceta()">
+              <div class="form-group">
+                <label for="nombrePacienteReceta">Nombre del Paciente:</label>
+                <input
+                  type="text"
+                  id="nombrePacienteReceta"
+                  [(ngModel)]="nuevaReceta.nombrePaciente"
+                  name="nombrePacienteReceta"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="medicamentosReceta">Medicamentos:</label>
+                <textarea
+                  id="medicamentosReceta"
+                  [(ngModel)]="nuevaReceta.medicamentos"
+                  name="medicamentosReceta"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="indicacionesReceta">Indicaciones:</label>
+                <textarea
+                  id="indicacionesReceta"
+                  [(ngModel)]="nuevaReceta.indicaciones"
+                  name="indicacionesReceta"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn-crear-receta">Crear Receta</button>
+            </form>
+          </section>
+
+          <!-- Plantillas de Medicamentos Frecuentes -->
+          <section class="plantillas-recetas">
+            <h2>Plantillas de Medicamentos Frecuentes</h2>
+            <ul>
+              <li *ngFor="let plantilla of plantillasRecetas" (click)="aplicarPlantilla(plantilla)">
+                {{ plantilla.nombre }}
+              </li>
+            </ul>
+          </section>
+
+          <!-- Lista de Recetas Generadas -->
+          <section class="lista-recetas">
+            <h2>Recetas Generadas</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre del Paciente</th>
+                  <th>Medicamentos</th>
+                  <th>Indicaciones</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let receta of recetasMedicas">
+                  <td>{{ receta.nombrePaciente }}</td>
+                  <td>{{ receta.medicamentos }}</td>
+                  <td>{{ receta.indicaciones }}</td>
+                  <td>
+                    <button class="action-btn" (click)="verReceta(receta)">Ver</button>
+                    <button class="action-btn" (click)="editarReceta(receta)">Editar</button>
+                    <button class="action-btn" (click)="eliminarReceta(receta)">Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+
+        <!-- Reportes Médicos -->
+        <section *ngIf="seccionActual === 'reportes'" class="reportes-section">
+          <h1>Módulo de Reportes Médicos</h1>
+
+          <!-- Generar Reporte -->
+          <section class="generar-reporte">
+            <h2>Generar Reporte</h2>
+            <form (ngSubmit)="generarReporte()">
+              <div class="form-group">
+                <label for="filtroEspecialidad">Especialidad:</label>
+                <select id="filtroEspecialidad" [(ngModel)]="filtroReporte.especialidad" name="filtroEspecialidad">
+                  <option value="">Todas</option>
+                  <option value="Pediatría">Pediatría</option>
+                  <option value="Cardiología">Cardiología</option>
+                  <option value="Dermatología">Dermatología</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="fechaInicio">Fecha Inicio:</label>
+                <input type="date" id="fechaInicio" [(ngModel)]="filtroReporte.fechaInicio" name="fechaInicio" />
+              </div>
+              <div class="form-group">
+                <label for="fechaFin">Fecha Fin:</label>
+                <input type="date" id="fechaFin" [(ngModel)]="filtroReporte.fechaFin" name="fechaFin" />
+              </div>
+              <button type="submit" class="btn-generar-reporte">Generar Reporte</button>
+            </form>
+          </section>
+
+          <!-- Visualización Gráfica -->
+          <section class="visualizacion-grafica">
+            <h2>Visualización Gráfica</h2>
+            <div class="graficas-container">
+              <div class="grafica" id="grafica-barras">Gráfica de Barras</div>
+              <div class="grafica" id="grafica-pastel">Gráfica de Pastel</div>
+              <div class="grafica" id="grafica-lineas">Gráfica de Líneas</div>
+            </div>
+          </section>
+
+          <!-- Detalles del Reporte -->
+          <section class="detalles-reporte">
+            <h2>Detalles del Reporte</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Especialidad</th>
+                  <th>Cantidad</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detalle of detallesReporte">
+                  <td>{{ detalle.especialidad }}</td>
+                  <td>{{ detalle.cantidad }}</td>
+                  <td>{{ detalle.fecha }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+
+        <!-- Registro de Citas -->
+        <section *ngIf="seccionActual === 'registro-citas'" class="registro-citas-section">
+          <h1>Módulo de Registro de Citas</h1>
+
+          <!-- Agendar Nueva Cita -->
+          <section class="agendar-cita">
+            <h2>Agendar Nueva Cita</h2>
+            <form (ngSubmit)="agendarCita()">
+              <div class="form-group">
+                <label for="nombrePacienteCita">Nombre del Paciente:</label>
+                <input
+                  type="text"
+                  id="nombrePacienteCita"
+                  [(ngModel)]="nuevaCita.nombrePaciente"
+                  name="nombrePacienteCita"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="fechaCita">Fecha de la Cita:</label>
+                <input
+                  type="date"
+                  id="fechaCita"
+                  [(ngModel)]="nuevaCita.fecha"
+                  name="fechaCita"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="horaCita">Hora de la Cita:</label>
+                <input
+                  type="time"
+                  id="horaCita"
+                  [(ngModel)]="nuevaCita.hora"
+                  name="horaCita"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn-agendar-cita">Agendar Cita</button>
+            </form>
+          </section>
+
+          <!-- Calendario de Citas -->
+          <section class="calendario-citas">
+            <h2>Calendario de Citas</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre del Paciente</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cita of citasProgramadas">
+                  <td>{{ cita.nombrePaciente }}</td>
+                  <td>{{ cita.fecha }}</td>
+                  <td>{{ cita.hora }}</td>
+                  <td>{{ cita.estado }}</td>
+                  <td>
+                    <button class="action-btn" (click)="verCita(cita)">Ver</button>
+                    <button class="action-btn" (click)="editarCita(cita)">Editar</button>
+                    <button class="action-btn" (click)="eliminarCita(cita)">Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+
+        <!-- Configuraciones -->
+        <section *ngIf="seccionActual === 'configuraciones'" class="configuraciones-section">
+          <h1>Módulo de Configuraciones</h1>
+
+          <!-- Opciones de Perfil -->
+          <section class="perfil-config">
+            <h2>Perfil del Usuario</h2>
+            <form (ngSubmit)="guardarPerfil()">
+              <div class="form-group">
+                <label for="nombreUsuario">Nombre:</label>
+                <input
+                  type="text"
+                  id="nombreUsuario"
+                  [(ngModel)]="perfilUsuario.nombre"
+                  name="nombreUsuario"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="emailUsuario">Correo Electrónico:</label>
+                <input
+                  type="email"
+                  id="emailUsuario"
+                  [(ngModel)]="perfilUsuario.email"
+                  name="emailUsuario"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn-guardar-perfil">Guardar Cambios</button>
+            </form>
+          </section>
+
+          <!-- Cambiar Contraseña -->
+          <section class="cambiar-password">
+            <h2>Cambiar Contraseña</h2>
+            <form (ngSubmit)="cambiarPassword()">
+              <div class="form-group">
+                <label for="passwordActual">Contraseña Actual:</label>
+                <input
+                  type="password"
+                  id="passwordActual"
+                  [(ngModel)]="passwordActual"
+                  name="passwordActual"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="passwordNueva">Nueva Contraseña:</label>
+                <input
+                  type="password"
+                  id="passwordNueva"
+                  [(ngModel)]="passwordNueva"
+                  name="passwordNueva"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="confirmarPassword">Confirmar Contraseña:</label>
+                <input
+                  type="password"
+                  id="confirmarPassword"
+                  [(ngModel)]="confirmarPassword"
+                  name="confirmarPassword"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn-cambiar-password">Cambiar Contraseña</button>
+            </form>
+          </section>
+
+          <!-- Preferencias del Sistema -->
+          <section class="preferencias-sistema">
+            <h2>Preferencias del Sistema</h2>
+            <form (ngSubmit)="guardarPreferencias()">
+              <div class="form-group">
+                <label for="temaSistema">Tema del Sistema:</label>
+                <select id="temaSistema" [(ngModel)]="preferenciasSistema.tema" name="temaSistema">
+                  <option value="claro">Claro</option>
+                  <option value="oscuro">Oscuro</option>
+                </select>
+              </div>
+              <button type="submit" class="btn-guardar-preferencias">Guardar Preferencias</button>
+            </form>
+          </section>
+        </section>
+  </main>
+
+  <!-- Pie de Página -->
+  <footer class="dashboard-footer">
+    <p>Fénix Medical © 2024</p>
+    <p>Soporte Técnico: soporte&#64;fenixmedical.com</p>
+    <p>Versión: 1.0.0</p>
+    <a href="#">Política de Privacidad</a>
+  </footer>
+</div>

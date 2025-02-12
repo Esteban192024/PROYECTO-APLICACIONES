@@ -1,0 +1,156 @@
+/* Copié directamente el estilo del encabezado, cuerpo y footer */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #fcfafc;
+  color: #333;
+  padding-top: 60px; /* Espacio para el header fijo */
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #7e3b8f;
+  padding: 10px 50px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+}
+
+header .logo img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+header h1 {
+  font-size: 24px;
+  color: #ffffff;
+  margin: 0;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin-right: 30px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+nav ul li.services {
+  position: relative;
+}
+
+nav ul li.services .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #7e3b8f;
+  padding: 10px;
+  border-radius: 8px;
+  list-style: none;
+  margin: 0;
+}
+
+nav ul li.services:hover .submenu {
+  display: block;
+}
+
+main {
+  margin-top: 80px;
+  padding: 20px;
+}
+
+.fisioterapia {
+  text-align: center;
+}
+
+.fisioterapia h2 {
+  color: #000000;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.fisioterapia-item {
+  margin-bottom: 30px;
+}
+
+.toggle {
+  background-color: #7e3b8f;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  background-color: #60978d;
+}
+
+.info {
+  display: none;
+  margin-top: 20px;
+  padding: 15px;
+  text-align: left;
+  background-color: #f9f9f9;
+}
+
+/* WhatsApp Flotante */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+}
+
+.whatsapp-float img {
+  width: 50px;
+}
+
+.whatsapp-float img:hover {
+  transform: scale(1.1); /* Agranda el icono al pasar el mouse */
+}
+
+footer {
+  background-color: #60978d;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.social img {
+  width: 30px;
+}
+
+.contact p {
+  font-size: 14px;
+}

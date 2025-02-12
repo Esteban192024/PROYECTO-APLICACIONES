@@ -1,0 +1,624 @@
+<div class="admin-container">
+  <!-- 🔹 Barra Lateral de Navegación -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="/assets/img/logo.svg" alt="Fénix Medical" class="logo" />
+      <h2>Administrador</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a (click)="mostrarSeccion('dashboard')" [class.active]="seccionActual === 'dashboard'"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a (click)="mostrarSeccion('gestion-medicos')" [class.active]="seccionActual === 'gestion-medicos'"><i class="fas fa-user-md"></i> Gestión de Médicos</a></li>
+        <li><a (click)="mostrarSeccion('gestion-citas')" [class.active]="seccionActual === 'gestion-citas'"><i class="fas fa-calendar-alt"></i> Gestión de Citas</a></li>
+        <li><a (click)="mostrarSeccion('reportes')" [class.active]="seccionActual === 'reportes'"><i class="fas fa-chart-line"></i> Reportes Médicos</a></li>
+        <li><a (click)="mostrarSeccion('configuracion')" [class.active]="seccionActual === 'configuracion'"><i class="fas fa-cogs"></i> Configuración</a></li>
+        <li><a (click)="cerrarSesion()" class="logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- 🔹 Contenido Principal -->
+  <main class="admin-main">
+    <!-- 🔹 Header (Barra Superior) -->
+    <header class="admin-header">
+      <div class="admin-title">
+        <h1>Panel de Administración</h1>
+      </div>
+      <div class="admin-profile">
+        <div class="notifications">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">{{ notificaciones }}</span>
+        </div>
+        <img src="/assets/img/admin-avatar.png" alt="Admin Avatar" class="profile-img" />
+        <span>Bienvenido, Administrador</span>
+      </div>
+    </header>
+
+    <!-- 🔹 SECCIÓN DEL DASHBOARD -->
+    <section *ngIf="seccionActual === 'dashboard'" class="dashboard-section">
+      <h2>Dashboard Principal</h2>
+      <section class="dashboard-stats">
+        <div class="stat-card"><i class="fas fa-user-md"></i><div class="stat-info"><h3>120</h3><p>Médicos Registrados</p></div></div>
+        <div class="stat-card"><i class="fas fa-user-check"></i><div class="stat-info"><h3>100</h3><p>Cuentas Activas</p></div></div>
+        <div class="stat-card"><i class="fas fa-user-times"></i><div class="stat-info"><h3>20</h3><p>Cuentas Inactivas</p></div></div>
+        <div class="stat-card"><i class="fas fa-calendar-check"></i><div class="stat-info"><h3>45</h3><p>Citas Programadas</p></div></div>
+      </section>
+
+
+
+      <!-- 🔹 Reportes y Estadísticas del Administrador -->
+      <section *ngIf="seccionActual === 'dashboard'" class="admin-reports">
+        <h2 class="title">📊 Reportes y Estadísticas</h2>
+        <div class="charts-container">
+          
+          <div class="chart">
+            <h3>🩺 Citas Médicas por Especialidad</h3>
+            <canvas id="specialtyChart"></canvas>
+          </div>
+
+          <div class="chart">
+            <h3>💳 Estado de las Cuentas Médicas</h3>
+            <canvas id="billingChart"></canvas>
+          </div>
+
+          <div class="chart">
+            <h3>📅 Citas Confirmadas vs Pendientes</h3>
+            <canvas id="appointmentsChart"></canvas>
+          </div>
+
+          <div class="chart">
+            <h3>📊 Comparación de Especialidades</h3>
+            <canvas id="comparisonChart"></canvas>
+          </div>
+
+        </div>
+        
+        <button class="download-report">📥 Descargar Reporte</button>
+      </section>
+
+
+
+      <!-- 🔹 Últimos Médicos Registrados (AHORA SOLO EN EL DASHBOARD) -->
+      <section class="latest-registrations">
+        <h2>Últimos Médicos Registrados</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Foto</th>
+                <th>Nombre</th>
+                <th>Especialidad</th>
+                <th>Correo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="/assets/img/doctor1.jpg" alt="Doctor 1" class="doctor-img"></td>
+                <td>Dr. Juan Pérez</td>
+                <td>Cardiología</td>
+                <td>juanperezhospital.com</td>
+                <td><span class="status active">Activo</span></td>
+                <td>
+                  <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                  <button class="btn-delete"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="/assets/img/doctor2.jpg" alt="Doctor 2" class="doctor-img"></td>
+                <td>Dra. María López</td>
+                <td>Neurología</td>
+                <td>marialopezhospital.com</td>
+                <td><span class="status inactive">Inactivo</span></td>
+                <td>
+                  <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                  <button class="btn-delete"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+<!-- 🔹 SECCIÓN DE GESTIÓN DE MÉDICOS -->
+<section *ngIf="seccionActual === 'gestion-medicos'" class="gestion-medicos-section">
+  <h2>Gestión de Médicos</h2>
+
+  <!-- 🔹 Botón para Registrar Nuevo Médico -->
+  <button class="btn-add" (click)="abrirFormularioRegistro()">
+    <i class="fas fa-user-plus"></i> Registrar Médico
+  </button>
+
+  <!-- 🔹 Formulario de Registro de Médicos (Nuevo Médico) -->
+  <div class="registro-medico-form" *ngIf="mostrarFormulario">
+    <h3>Registrar Nuevo Médico</h3>
+    <form (submit)="registrarMedico()">
+      <div class="input-group">
+        <label for="nombre">Nombre Completo</label>
+        <input type="text" id="nombre" placeholder="Ingrese el nombre del médico" [(ngModel)]="nuevoMedico.nombre" name="nombre" required />
+      </div>
+
+      <!-- 🔹 NUEVOS CAMPOS: Cédula y Teléfono -->
+      <div class="input-group">
+        <label for="cedula">Cédula</label>
+        <input type="text" id="cedula" placeholder="Número de cédula" [(ngModel)]="nuevoMedico.cedula" name="cedula" required />
+      </div>
+      <div class="input-group">
+        <label for="telefono">Teléfono</label>
+        <input type="text" id="telefono" placeholder="Número de teléfono" [(ngModel)]="nuevoMedico.telefono" name="telefono" required />
+      </div>
+      <!-- 🔹 FIN NUEVOS CAMPOS -->
+
+      <div class="input-group">
+        <label for="especialidad">Especialidad</label>
+        <input type="text" id="especialidad" placeholder="Ingrese la especialidad" [(ngModel)]="nuevoMedico.especialidad" name="especialidad" required />
+      </div>
+      <div class="input-group">
+        <label for="correo">Correo Electrónico</label>
+        <input type="email" id="correo" placeholder="Correo del médico" [(ngModel)]="nuevoMedico.correo" name="correo" required />
+      </div>
+
+      <!-- 🔹 NUEVA OPCIÓN: Generar cuenta con contraseña -->
+      <div class="input-group">
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" placeholder="Generar contraseña" [(ngModel)]="nuevoMedico.contrasena" name="contrasena" required />
+      </div>
+      <!-- 🔹 FIN NUEVA OPCIÓN -->
+
+      <div class="input-group">
+        <label for="estado">Estado</label>
+        <select id="estado" [(ngModel)]="nuevoMedico.estado" name="estado">
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="foto">Foto del Médico</label>
+        <input type="file" id="foto" (change)="subirImagen($event)" />
+      </div>
+
+      <button type="submit" class="btn-save">
+        <i class="fas fa-save"></i> Guardar Médico
+      </button>
+      <button type="button" class="btn-cancel" (click)="cerrarFormularioRegistro()">
+        <i class="fas fa-times"></i> Cancelar
+      </button>
+    </form>
+  </div>
+
+  <!-- 🔹 Tabla de Médicos Registrados -->
+  <div class="table-container">
+    <h3>Lista de Médicos Registrados</h3>
+
+    <div class="search-container">
+      <input type="text" placeholder="Buscar médico..." [(ngModel)]="filtroMedico" (input)="filtrarMedicos()" />
+      <select [(ngModel)]="filtroEstado" (change)="filtrarMedicos()">
+        <option value="">Todos</option>
+        <option value="Activo">Activos</option>
+        <option value="Inactivo">Inactivos</option>
+      </select>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Nombre</th>
+          <th>Especialidad</th>
+          <th>Correo</th>
+          <th>Cédula</th>
+          <th>Teléfono</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let medico of medicosFiltrados">
+          <td><img [src]="medico.foto" alt="{{ medico.nombre }}" class="doctor-img"></td>
+          <td>{{ medico.nombre }}</td>
+          <td>{{ medico.especialidad }}</td>
+          <td>{{ medico.correo }}</td>
+          <td>{{ medico.cedula }}</td>
+          <td>{{ medico.telefono }}</td>
+          <td><span class="status" [class.active]="medico.estado === 'Activo'" [class.inactive]="medico.estado === 'Inactivo'">{{ medico.estado }}</span></td>
+          <td>
+            <button class="btn-edit" (click)="editarMedico(medico)"><i class="fas fa-edit"></i></button>
+            <button class="btn-delete" (click)="eliminarMedico(medico.id)"><i class="fas fa-trash-alt"></i></button>
+            <!-- 🔹 NUEVA OPCIÓN: Cambiar contraseña -->
+            <button class="btn-password" (click)="abrirCambioContrasena(medico)"><i class="fas fa-key"></i></button>
+            <!-- 🔹 FIN NUEVA OPCIÓN -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 🔹 Modal de Cambio de Contraseña -->
+  <div class="modal" *ngIf="medicoSeleccionadoParaContrasena">
+    <div class="modal-content">
+      <h3>Cambiar Contraseña</h3>
+      <form (submit)="guardarCambioContrasena()">
+        <div class="input-group">
+          <label for="nueva-contrasena">Nueva Contraseña</label>
+          <input type="password" id="nueva-contrasena" [(ngModel)]="nuevaContrasena" name="nueva-contrasena" required />
+        </div>
+        <div class="input-group">
+          <label for="confirmar-contrasena">Confirmar Contraseña</label>
+          <input type="password" id="confirmar-contrasena" [(ngModel)]="confirmarContrasena" name="confirmar-contrasena" required />
+        </div>
+        <button type="submit" class="btn-save"><i class="fas fa-save"></i> Guardar Cambios</button>
+        <button type="button" class="btn-cancel" (click)="cerrarCambioContrasena()"><i class="fas fa-times"></i> Cancelar</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- 🔹 SECCIÓN DE GESTIÓN DE CITAS -->
+<section *ngIf="seccionActual === 'gestion-citas'" class="gestion-citas-section">
+  <h2>Gestión de Citas</h2>
+
+  <!-- 🔹 Botón para Agendar Nueva Cita -->
+  <button class="btn-add" (click)="abrirFormularioCita()">
+    <i class="fas fa-calendar-plus"></i> Agendar Cita
+  </button>
+
+  <!-- 🔹 Formulario de Registro de Citas (Oculto hasta que se active) -->
+  <div class="registro-cita-form" *ngIf="mostrarFormularioCita">
+    <h3>Agendar Nueva Cita</h3>
+    <form (submit)="registrarCita()">
+      <div class="input-group">
+        <label for="paciente">Paciente</label>
+        <input type="text" id="paciente" placeholder="Nombre del paciente" [(ngModel)]="nuevaCita.paciente" name="paciente" required />
+      </div>
+      <div class="input-group">
+        <label for="medico">Médico</label>
+        <select id="medico" [(ngModel)]="nuevaCita.medico" name="medico">
+          <option *ngFor="let medico of medicos" [value]="medico.nombre">{{ medico.nombre }} - {{ medico.especialidad }}</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="fecha">Fecha y Hora</label>
+        <input type="datetime-local" id="fecha" [(ngModel)]="nuevaCita.fecha" name="fecha" required />
+      </div>
+      <div class="input-group">
+        <label for="estado">Estado</label>
+        <select id="estado" [(ngModel)]="nuevaCita.estado" name="estado">
+          <option value="Pendiente">Pendiente</option>
+          <option value="Confirmada">Confirmada</option>
+          <option value="Cancelada">Cancelada</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-save">
+        <i class="fas fa-save"></i> Guardar Cita
+      </button>
+      <button type="button" class="btn-cancel" (click)="cerrarFormularioCita()">
+        <i class="fas fa-times"></i> Cancelar
+      </button>
+    </form>
+  </div>
+
+  <!-- 🔹 Tabla de Citas Programadas -->
+  <div class="table-container">
+    <h3>Lista de Citas Programadas</h3>
+    
+    <!-- 🔹 Buscador y filtro -->
+    <div class="search-container">
+      <input type="text" placeholder="Buscar cita..." [(ngModel)]="filtroCita" (input)="filtrarCitas()" />
+      <select [(ngModel)]="filtroEstadoCita" (change)="filtrarCitas()">
+        <option value="">Todos</option>
+        <option value="Pendiente">Pendientes</option>
+        <option value="Confirmada">Confirmadas</option>
+        <option value="Cancelada">Canceladas</option>
+      </select>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Paciente</th>
+          <th>Médico</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cita of citasFiltradas">
+          <td>{{ cita.paciente }}</td>
+          <td>{{ cita.medico }}</td>
+          <td>{{ cita.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
+          <td><span class="status" [class.pending]="cita.estado === 'Pendiente'" [class.confirmed]="cita.estado === 'Confirmada'" [class.cancelled]="cita.estado === 'Cancelada'">{{ cita.estado }}</span></td>
+          <td>
+            <button class="btn-edit" (click)="editarCita(cita)"><i class="fas fa-edit"></i></button>
+            <button class="btn-delete" (click)="eliminarCita(cita.id)"><i class="fas fa-trash-alt"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 🔹 Modal de Edición de Citas -->
+  <div class="modal" *ngIf="citaSeleccionada">
+    <div class="modal-content">
+      <h3>Editar Cita</h3>
+      <form (submit)="guardarEdicionCita()">
+        <div class="input-group">
+          <label for="edit-paciente">Paciente</label>
+          <input type="text" id="edit-paciente" [(ngModel)]="citaSeleccionada.paciente" name="edit-paciente" required />
+        </div>
+        <div class="input-group">
+          <label for="edit-medico">Médico</label>
+          <select id="edit-medico" [(ngModel)]="citaSeleccionada.medico" name="edit-medico">
+            <option *ngFor="let medico of medicos" [value]="medico.nombre">{{ medico.nombre }} - {{ medico.especialidad }}</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="edit-fecha">Fecha y Hora</label>
+          <input type="datetime-local" id="edit-fecha" [(ngModel)]="citaSeleccionada.fecha" name="edit-fecha" required />
+        </div>
+        <div class="input-group">
+          <label for="edit-estado">Estado</label>
+          <select id="edit-estado" [(ngModel)]="citaSeleccionada.estado" name="edit-estado">
+            <option value="Pendiente">Pendiente</option>
+            <option value="Confirmada">Confirmada</option>
+            <option value="Cancelada">Cancelada</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-save"><i class="fas fa-save"></i> Guardar Cambios</button>
+        <button type="button" class="btn-cancel" (click)="cerrarModalEdicionCita()"><i class="fas fa-times"></i> Cancelar</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- 🔹 SECCIÓN DE REPORTES MÉDICOS -->
+<section *ngIf="seccionActual === 'reportes'" class="reportes-medicos-section">
+  <h2>Reportes Médicos</h2>
+
+  <!-- 🔹 Filtros de Reportes -->
+  <div class="report-filters">
+    <label for="reporte-tipo">Tipo de Reporte:</label>
+    <select id="reporte-tipo" [(ngModel)]="tipoReporte" (change)="filtrarReportes()">
+      <option value="todas">Todos</option>
+      <option value="citas">Citas Médicas</option>
+      <option value="medicos">Médicos</option>
+      <option value="pacientes">Pacientes</option>
+    </select>
+
+    <label for="reporte-fecha">Fecha:</label>
+    <input type="date" id="reporte-fecha" [(ngModel)]="fechaReporte" (change)="filtrarReportes()" />
+  </div>
+
+  <!-- 🔹 Gráficos Estadísticos -->
+  <div class="dashboard-reports">
+    <div class="report-card">
+      <h3>Citas Médicas por Especialidad</h3>
+      <img src="/assets/img/chart-example1.png" alt="Gráfico de citas por especialidad" class="report-img">
+    </div>
+    <div class="report-card">
+      <h3>Estado de las Cuentas Médicas</h3>
+      <img src="/assets/img/chart-example2.png" alt="Gráfico de estado de cuentas" class="report-img">
+    </div>
+    <div class="report-card">
+      <h3>Pacientes Atendidos por Mes</h3>
+      <img src="/assets/img/chart-example3.png" alt="Gráfico de pacientes atendidos" class="report-img">
+    </div>
+  </div>
+
+  <!-- 🔹 Tabla de Reportes Médicos -->
+  <div class="table-container">
+    <h3>Historial de Reportes Médicos</h3>
+    
+    <!-- 🔹 Buscador de Reportes -->
+    <div class="search-container">
+      <input type="text" placeholder="Buscar reporte..." [(ngModel)]="filtroReporte" (input)="filtrarReportes()" />
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Tipo</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reporte of reportesFiltrados">
+          <td>{{ reporte.fecha }}</td>
+          <td>{{ reporte.tipo }}</td>
+          <td>{{ reporte.descripcion }}</td>
+          <td>
+            <button class="btn-view" (click)="verReporte(reporte)"><i class="fas fa-eye"></i></button>
+            <button class="btn-download" (click)="descargarReporte(reporte)"><i class="fas fa-download"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 🔹 Modal de Visualización de Reportes -->
+  <div class="modal" *ngIf="reporteSeleccionado">
+    <div class="modal-content">
+      <h3>Detalles del Reporte</h3>
+      <p><strong>Fecha:</strong> {{ reporteSeleccionado.fecha }}</p>
+      <p><strong>Tipo:</strong> {{ reporteSeleccionado.tipo }}</p>
+      <p><strong>Descripción:</strong></p>
+      <p>{{ reporteSeleccionado.descripcion }}</p>
+      <img [src]="reporteSeleccionado.imagen" alt="Gráfico del reporte" class="report-modal-img">
+      <button class="btn-close" (click)="cerrarModalReporte()"><i class="fas fa-times"></i> Cerrar</button>
+    </div>
+  </div>
+</section>
+
+<!-- 🔹 SECCIÓN DE CONFIGURACIÓN -->
+<section *ngIf="seccionActual === 'configuracion'" class="configuracion-section">
+  <h2>Configuración</h2>
+
+  <!-- 🔹 Panel de Opciones de Configuración -->
+  <div class="config-panel">
+    <div class="config-option">
+      <i class="fas fa-user-cog"></i>
+      <h3>Perfil y Seguridad</h3>
+      <p>Gestiona tu perfil, cambia tu contraseña y actualiza tu información personal.</p>
+      <button class="btn-config" (click)="mostrarSeccionPerfil()">Administrar</button>
+    </div>
+
+    <div class="config-option">
+      <i class="fas fa-paint-brush"></i>
+      <h3>Temas y Apariencia</h3>
+      <p>Personaliza la apariencia del sistema, incluyendo colores y diseño.</p>
+      <button class="btn-config" (click)="mostrarSeccionTema()">Personalizar</button>
+    </div>
+
+    <div class="config-option">
+      <i class="fas fa-bell"></i>
+      <h3>Notificaciones</h3>
+      <p>Configura las notificaciones que deseas recibir.</p>
+      <button class="btn-config" (click)="mostrarSeccionNotificaciones()">Ajustes</button>
+    </div>
+
+    <div class="config-option">
+      <i class="fas fa-users-cog"></i>
+      <h3>Permisos de Usuarios</h3>
+      <p>Administra los permisos y accesos de los usuarios del sistema.</p>
+      <button class="btn-config" (click)="mostrarSeccionPermisos()">Administrar</button>
+    </div>
+  </div>
+
+  <!-- 🔹 PERFIL Y SEGURIDAD -->
+  <div *ngIf="seccionConfig === 'perfil'" class="config-content">
+    <h3>Perfil del Administrador</h3>
+    <div class="profile-container">
+      <img src="/assets/img/admin-avatar.png" alt="Admin Avatar" class="profile-img" />
+      <form (submit)="guardarPerfilAdmin()">
+        <div class="input-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" [(ngModel)]="perfilAdmin.nombre" name="nombre" required />
+        </div>
+        <div class="input-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" id="apellido" [(ngModel)]="perfilAdmin.apellido" name="apellido" required />
+        </div>
+        <div class="input-group">
+          <label for="correo">Correo Electrónico</label>
+          <input type="email" id="correo" [(ngModel)]="perfilAdmin.correo" name="correo" required />
+        </div>
+        <div class="input-group">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" id="telefono" [(ngModel)]="perfilAdmin.telefono" name="telefono" required />
+        </div>
+        <button type="submit" class="btn-save"><i class="fas fa-save"></i> Guardar Perfil</button>
+      </form>
+    </div>
+
+    <!-- 🔹 CAMBIO DE CONTRASEÑA -->
+    <h3>Cambiar Contraseña</h3>
+    <form (submit)="cambiarContrasena()">
+      <div class="input-group">
+        <label for="actual-contrasena">Contraseña Actual</label>
+        <input type="password" id="actual-contrasena" [(ngModel)]="actualContrasena" name="actualContrasena" required />
+      </div>
+      <div class="input-group">
+        <label for="nueva-contrasena">Nueva Contraseña</label>
+        <input type="password" id="nueva-contrasena" [(ngModel)]="nuevaContrasena" name="nuevaContrasena" required />
+      </div>
+      <div class="input-group">
+        <label for="confirmar-contrasena">Confirmar Nueva Contraseña</label>
+        <input type="password" id="confirmar-contrasena" [(ngModel)]="confirmarContrasena" name="confirmarContrasena" required />
+      </div>
+      <button type="submit" class="btn-save"><i class="fas fa-key"></i> Actualizar Contraseña</button>
+    </form>
+  </div>
+
+  <!-- 🔹 TEMAS Y APARIENCIA -->
+  <div *ngIf="seccionConfig === 'tema'" class="config-content">
+    <h3>Temas y Personalización</h3>
+    <div class="theme-selector">
+      <div class="theme-option light" (click)="cambiarTema('light')">
+        <i class="fas fa-sun"></i>
+        <p>Tema Claro</p>
+      </div>
+      <div class="theme-option dark" (click)="cambiarTema('dark')">
+        <i class="fas fa-moon"></i>
+        <p>Tema Oscuro</p>
+      </div>
+      <div class="theme-option blue" (click)="cambiarTema('blue')">
+        <i class="fas fa-palette"></i>
+        <p>Tema Azul</p>
+      </div>
+    </div>
+
+    <br>
+
+    <h3>Personalizar Colores</h3>
+    <div class="color-picker">
+      <label>Color del Header:</label>
+      <input type="color" [(ngModel)]="colorHeader" (change)="actualizarColores()" />
+
+      <label>Color del Footer:</label>
+      <input type="color" [(ngModel)]="colorFooter" (change)="actualizarColores()" />
+
+      <label>Color del Menú Lateral:</label>
+      <input type="color" [(ngModel)]="colorSidebar" (change)="actualizarColores()" />
+    </div>
+  </div>
+
+<!-- 🔹 CONFIGURACIÓN DE NOTIFICACIONES -->
+<div *ngIf="seccionConfig === 'notificaciones'" class="config-content">
+  <h3>Notificaciones</h3>
+  <div class="switch-group">
+    <label>
+      <input type="checkbox" [(ngModel)]="notificacionesCorreo" /> Recibir notificaciones por correo
+    </label>
+  </div>
+  <div class="switch-group">
+    <label>
+      <input type="checkbox" [(ngModel)]="notificacionesApp" /> Notificaciones dentro de la aplicación
+    </label>
+  </div>
+  <button class="btn-save" (click)="guardarNotificaciones()"><i class="fas fa-save"></i> Guardar Preferencias</button>
+</div>
+
+
+  <!-- 🔹 PERMISOS DE USUARIOS -->
+  <div *ngIf="seccionConfig === 'permisos'" class="config-content">
+    <h3>Gestión de Permisos</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.nombre }}</td>
+          <td>
+            <select [(ngModel)]="usuario.rol">
+              <option value="Administrador">Administrador</option>
+              <option value="Médico">Médico</option>
+              <option value="Recepcionista">Recepcionista</option>
+            </select>
+          </td>
+          <td>
+            <button class="btn-action" (click)="actualizarPermiso(usuario)">
+              <i class="fas fa-check-circle"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+    <!-- 🔹 Footer -->
+    <footer class="admin-footer">
+      <p>&copy; 2024 Fénix Medical | Todos los derechos reservados</p>
+    </footer>
+  </main>
+</div>

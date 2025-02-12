@@ -1,0 +1,203 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #fcfafc;
+  color: #333;
+  padding-top: 60px; /* Espacio para el header fijo */
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #7e3b8f;
+  padding: 10px 50px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+}
+
+header .logo img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+header h1 {
+  font-size: 24px;
+  color: #ffffff;
+  margin: 0;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin-right: 30px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+nav ul li:hover a {
+  color: #fcfafc;
+}
+
+/* Estilo para el submenú de "Servicios" */
+nav ul li.services {
+  position: relative;
+}
+
+nav ul li.services .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #7e3b8f; /* Color morado oscuro */
+  padding: 10px;
+  border-radius: 8px;
+  list-style: none;
+  margin: 0;
+}
+
+nav ul li.services:hover .submenu {
+  display: block;
+}
+
+nav ul li.services .submenu li a {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+nav ul li.services .submenu li a:hover {
+  color: #fcfafc;
+}
+
+/* Cuerpo de la página */
+main {
+  margin-top: 80px;
+  padding: 20px;
+}
+
+/* Sección Medicina General */
+.medicina-general {
+  text-align: center;
+  padding: 20px;
+}
+
+.medicina-general h2 {
+  font-size: 30px;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.medicina-general .content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.medicina-general .image {
+  flex: 1;
+  border: 2px solid #7e3b8f;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.medicina-general .image img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.medicina-general .description {
+  flex: 1;
+  background-color: #ffffff;
+  border: 2px solid #7e3b8f;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.medicina-general .description h3 {
+  font-size: 24px;
+  color: #7e3b8f;
+  margin-bottom: 10px;
+}
+
+.medicina-general .description p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.medicina-general .additional-info {
+  background-color: #f7f7f7;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.medicina-general .additional-info h4 {
+  color: #7e3b8f;
+  margin-bottom: 10px;
+}
+
+.medicina-general .additional-info ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.medicina-general .additional-info ul li {
+  font-size: 16px;
+  color: #333;
+}
+
+/* WhatsApp Flotante */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.whatsapp-float img {
+  width: 50px;
+}
+
+/* Footer */
+footer {
+  background-color: #60978d;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.social img {
+  width: 30px;
+}
+
+.contact p {
+  font-size: 14px;
+}

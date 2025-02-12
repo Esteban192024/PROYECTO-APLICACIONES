@@ -1,0 +1,53 @@
+.crear-cuenta-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  
+    h1 {
+      color: #7e3b8f;
+      margin-bottom: 20px;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+  
+      label {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 5px;
+        display: block;
+      }
+  
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+  
+        &:focus {
+          border-color: #7e3b8f;
+          outline: none;
+        }
+      }
+    }
+  
+    .btn-crear {
+      background-color: #7e3b8f;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #60978d;
+        transition: background-color 0.3s ease;
+      }
+    }
+  }
+  

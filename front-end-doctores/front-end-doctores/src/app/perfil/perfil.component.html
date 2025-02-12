@@ -1,0 +1,145 @@
+<div class="perfil-container">
+    <!-- Encabezado -->
+    <header class="dashboard-header">
+      <div class="header-left">
+        <img src="assets/logo.png" alt="Fénix Medical" class="logo" />
+      </div>
+      <div class="header-right">
+        <span class="doctor-name">{{ perfilUsuario.nombre }}</span>
+        <div class="header-options">
+          <button class="header-btn" (click)="volver()">Volver</button>
+          <button class="header-btn" (click)="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+      </div>
+    </header>
+  
+    <!-- Cuerpo de la página -->
+    <main class="perfil-main">
+      <section class="perfil-section">
+        <h1>Perfil del Usuario</h1>
+        <div class="perfil-info">
+          <!-- Información General -->
+          <div class="info-row">
+            <label>Nombre:</label>
+            <span *ngIf="!editando.nombre">{{ perfilUsuario.nombre }}</span>
+            <input
+              *ngIf="editando.nombre"
+              type="text"
+              [(ngModel)]="perfilUsuario.nombre"
+            />
+            <button (click)="toggleEditar('nombre')">
+              {{ editando.nombre ? 'Guardar' : 'Editar' }}
+            </button>
+          </div>          
+          <div class="info-row">
+            <label>Cédula:</label>
+            <span *ngIf="!editando.cedula">{{ perfilUsuario.cedula }}</span>
+            <input
+              *ngIf="editando.cedula"
+              type="text"
+              [(ngModel)]="perfilUsuario.cedula"
+            />
+            <button (click)="toggleEditar('cedula')">
+              {{ editando.cedula ? 'Guardar' : 'Editar' }}
+            </button>
+          </div>
+          <div class="info-row">
+            <label>Correo Electrónico:</label>
+            <span *ngIf="!editando.email">{{ perfilUsuario.email }}</span>
+            <input
+              *ngIf="editando.email"
+              type="email"
+              [(ngModel)]="perfilUsuario.email"
+            />
+            <button (click)="toggleEditar('email')">
+              {{ editando.email ? 'Guardar' : 'Editar' }}
+            </button>
+          </div>
+          <div class="info-row">
+            <label>Teléfono:</label>
+            <span *ngIf="!editando.telefono">{{ perfilUsuario.telefono }}</span>
+            <input
+              *ngIf="editando.telefono"
+              type="text"
+              [(ngModel)]="perfilUsuario.telefono"
+            />
+            <button (click)="toggleEditar('telefono')">
+              {{ editando.telefono ? 'Guardar' : 'Editar' }}
+            </button>
+          </div>
+          <div class="info-row">
+            <label>Dirección:</label>
+            <span *ngIf="!editando.direccion">{{ perfilUsuario.direccion }}</span>
+            <textarea
+              *ngIf="editando.direccion"
+              [(ngModel)]="perfilUsuario.direccion"
+            ></textarea>
+            <button (click)="toggleEditar('direccion')">
+              {{ editando.direccion ? 'Guardar' : 'Editar' }}
+            </button>
+          </div>
+          <div class="info-row">
+            <label>Especialidad:</label>
+            <span *ngIf="!editando.especialidad">{{ perfilUsuario.especialidad }}</span>
+            <input
+              *ngIf="editando.especialidad"
+              type="text"
+              [(ngModel)]="perfilUsuario.especialidad"
+            />
+            <button (click)="toggleEditar('especialidad')">
+              {{ editando.especialidad ? 'Guardar' : 'Editar' }}
+            </button>
+          </div>
+        </div>
+  
+        <!-- Cambiar Contraseña -->
+        <section class="cambiar-password">
+            <h2>Cambiar Contraseña</h2>
+            <form (ngSubmit)="cambiarPassword()">
+              <div class="form-group">
+                <label for="passwordActual">Contraseña Actual:</label>
+                <input
+                  type="password"
+                  id="passwordActual"
+                  [(ngModel)]="passwordActual"
+                  name="passwordActual"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="passwordNueva">Nueva Contraseña:</label>
+                <input
+                  type="password"
+                  id="passwordNueva"
+                  [(ngModel)]="passwordNueva"
+                  name="passwordNueva"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="confirmarPassword">Confirmar Contraseña:</label>
+                <input
+                  type="password"
+                  id="confirmarPassword"
+                  [(ngModel)]="confirmarPassword"
+                  name="confirmarPassword"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn-cambiar-password">
+                Cambiar Contraseña
+              </button>
+            </form>
+          </section>          
+      </section>
+    </main>
+  
+  <!-- Pie de Página -->
+  <footer class="dashboard-footer">
+    <p>Fénix Medical © 2024</p>
+    <p>Soporte Técnico: soporte&#64;fenixmedical.com</p>
+    <p>Versión: 1.0.0</p>
+    <a href="#">Política de Privacidad</a>
+  </footer>
+</div>
+  

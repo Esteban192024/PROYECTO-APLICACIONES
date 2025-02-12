@@ -1,0 +1,215 @@
+.perfil-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #fcfafc;
+  
+    /* Encabezado */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #7e3b8f;
+      padding: 10px 50px;
+      color: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+  
+      .header-left {
+        display: flex;
+        align-items: center;
+  
+        .logo {
+          height: 50px;
+          margin-right: 10px;
+        }
+      }
+  
+      .header-right {
+        display: flex;
+        align-items: center;
+  
+        .doctor-name {
+          font-size: 16px;
+          margin-right: 20px;
+        }
+  
+        .header-options {
+          .header-btn {
+            background-color: #60978d;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+  
+            &:hover {
+              background-color: #5b5b8d;
+              transition: background-color 0.3s ease;
+            }
+          }
+        }
+      }
+    }
+  
+    /* Cuerpo principal */
+    .perfil-main {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+  
+      .perfil-section {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+  
+        h1 {
+          font-size: 28px;
+          color: #7e3b8f;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+  
+        .perfil-info {
+          margin-bottom: 40px;
+  
+          .info-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+  
+            label {
+              font-size: 16px;
+              color: #333;
+              flex: 1;
+            }
+  
+            span {
+              flex: 2;
+              font-size: 15px;
+              color: #555;
+            }
+  
+            input,
+            textarea {
+              flex: 2;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              padding: 8px;
+              font-size: 14px;
+              color: #333;
+  
+              &:focus {
+                border-color: #7e3b8f;
+                outline: none;
+              }
+            }
+  
+            textarea {
+              resize: vertical;
+            }
+  
+            button {
+              background-color: #60978d;
+              color: #ffffff;
+              border: none;
+              border-radius: 5px;
+              padding: 8px 15px;
+              cursor: pointer;
+              margin-left: 10px;
+  
+              &:hover {
+                background-color: #7e3b8f;
+                transition: background-color 0.3s ease;
+              }
+            }
+          }
+        }
+  
+        .cambiar-password {
+          margin-top: 20px;
+  
+          h2 {
+            font-size: 22px;
+            color: #7e3b8f;
+            margin-bottom: 20px;
+            text-align: center;
+          }
+  
+          .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+  
+            label {
+              font-size: 16px;
+              color: #333;
+              margin-bottom: 5px;
+            }
+  
+            input {
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              padding: 8px;
+              font-size: 14px;
+              color: #333;
+  
+              &:focus {
+                border-color: #7e3b8f;
+                outline: none;
+              }
+            }
+          }
+  
+          .btn-cambiar-password {
+            background-color: #60978d;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+  
+            &:hover {
+              background-color: #7e3b8f;
+              transition: background-color 0.3s ease;
+            }
+          }
+        }
+      }
+    }
+  
+/* Pie de Página */
+.dashboard-footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #7e3b8f;
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.dashboard-footer p {
+  margin: 0;
+}
+
+.dashboard-footer a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.dashboard-footer a:hover {
+  text-decoration: underline;}
+}
